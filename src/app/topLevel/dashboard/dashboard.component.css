@@ -1,0 +1,52 @@
+.main-container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 30;
+}
+.main {
+  margin-top: 50px;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 50px);
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin-left: 268px;
+  transition: all 1s;
+  width: calc(100% - 258px);
+  overflow-y: scroll;
+}
+.content:not(.sidebarExpanded) {
+  margin-left: 70px;
+  width: calc(100% - 70px);
+}
+.pages {
+  width: 100%;
+  padding: 1.5rem 1.7rem 0;
+  flex: 1;
+}
+.content::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+.content::-webkit-scrollbar:vertical {
+  width: 8px;
+}
+.content::-webkit-scrollbar:horizontal {
+  width: 0px;
+  display: none;
+}
+.content::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 20px;
+  border: 2px solid background;
+}

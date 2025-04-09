@@ -1,0 +1,100 @@
+/* NAV */
+nav {
+  width: 100%;
+  height: 50px;
+  background-color: var(--neutral-1-color);
+}
+/* CONTAINER */
+.main {
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+}
+/* COLUMNAS */
+.main .child {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 1rem;
+}
+/* BOTONES EN COLUMNAS */
+.child button {
+  border: none;
+  background: none;
+  color: var(--text-color);
+}
+
+/* HAMBURGER ICON */
+.hamburger button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 70px;
+  height: 100%;
+  width: 40px;
+}
+
+/* PROFILE IMAGE */
+.main .child.content {
+  justify-content: end;
+}
+/* BARRA BUSQUEDA */
+.content > div:first-child {
+  display: flex;
+  align-items: center;
+  /* width: 100%; */
+}
+.content div input {
+  border-radius: 11px;
+  border: none;
+  padding: 5px;
+  padding-left: 10px;
+  width: 100%;
+  outline: none;
+  /* background-color: var(--primary-color); */
+}
+.content div input:focus {
+  border: 1px solid var(--accent-color);
+}
+.content button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  height: 100%;
+}
+.content button hr {
+  border: 1px solid var(--accent-color);
+}
+.content button > * {
+  margin-inline: 5px;
+}
+.profile-image {
+  width: var(--height-profile);
+  height: var(--height-profile);
+  margin: auto;
+  border-radius: 100px;
+  background-color: white;
+}
+.profile-img img {
+  width: 100%;
+  height: 100%;
+  border: 100%;
+}
+.profile-image .not-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: var(--text-color);
+  font-weight: bold;
+  font-size: 14px;
+  line-height: var(--height-profile);
+}
+.profile-image .not-image::after {
+  /* content: attr(data-name) */
+  content: 'U';
+  /* content: "\e604"; */
+}
+
+/* NAME USER */

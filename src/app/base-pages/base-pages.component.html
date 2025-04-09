@@ -1,0 +1,26 @@
+<div class="main" [style.background-color]="color">
+  <div class="content">
+    <section class="header">
+      <div class="title">
+        <ng-template [ngIf]="title" [ngIfElse]="withOutTitle">
+          <h2>{{ title }}</h2>
+        </ng-template>
+        <ng-template #withOutTitle>
+          <p>Default Title to Section</p>
+        </ng-template>
+      </div>
+      <div class="anyOption" *ngIf="anyOption">
+        <button>{{ optionButton }}</button>
+      </div>
+    </section>
+    <section class="filter-bars" *ngIf="searchbar">
+      <input type="text" placeholder="Busqueda por defecto" />
+    </section>
+    <main class="data">
+      <!-- tabla de datos -->
+      <ng-content select="[section=dataTable]"></ng-content>
+      <!-- otra data -->
+      <ng-content select="[section=otherData]"></ng-content>
+    </main>
+  </div>
+</div>

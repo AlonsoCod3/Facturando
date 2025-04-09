@@ -1,0 +1,53 @@
+<div class="sidebar" id="sidebar" [ngClass]="{ expanded: isOpen }">
+  <div class="header">
+    <!-- IMAGEN DE EMPRESA -->
+    <ng-content *ngIf="image">
+      <img src=".assets/images/logo.png" alt="Logo-to-sidebar" />
+    </ng-content>
+
+    <!-- NOMBRE DE LA EMPRESA -->
+    <h1 class="title">
+      {{ NAME }}
+    </h1>
+
+    <!-- Manejador interno de sidebar -->
+    <div class="toggle" (click)="sidebarToggle()">
+      <span class="chevron">></span>
+    </div>
+  </div>
+  <nav class="content" id="sidebar-menu">
+    <ul class="links">
+      <!-- MENUS -->
+      <div *ngFor="let menu of routes" class="option">
+        <li
+          class="item"
+          routerLink="{{ menu[0] }}"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <div class="postion-relative">
+            <i class="menu-icon" [class]="menu[1]"></i>
+            <span class="title">{{ menu[2] }}</span>
+          </div>
+          <span class="tooltip">{{ menu[2] }}</span>
+        </li>
+        <!-- SUBMENUS -->
+        <ol *ngIf="menu[3]" class="children">
+          <li
+            *ngFor="let child of $any(menu[3])"
+            class="item"
+            [routerLink]="[menu[0], child[0]]"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div class="position-relative">
+              <i class="menu-icon" [class]="child[1]"></i>
+              <span class="title">{{ child[2] }}</span>
+            </div>
+            <span class="tooltip">{{ child[2] }}</span>
+          </li>
+        </ol>
+      </div>
+    </ul>
+  </nav>
+</div>

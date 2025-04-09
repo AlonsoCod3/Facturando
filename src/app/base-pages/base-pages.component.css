@@ -1,0 +1,50 @@
+/* ALL CONTENT */
+.main {
+  /* transition: all 0.5s;  */ /* causa error al cambiar de pestaña */
+  margin: 10px;
+  border-radius: 5px;
+}
+/* PAGINA/CARD */
+.content {
+  position: relative;
+  padding: 1.8rem;
+}
+/* NOMBRE DE PAGINA */
+.content section.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+}
+.content section.header .title {
+  color: initial;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-block: 10px;
+}
+.content section.header .anyOption button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/* BARRA BUSQUEDA/ FILTROS */
+.filter-bars {
+  /* display: flex; */
+  width: 100%;
+}
+.filter-bars input {
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+}
+/* CONTENT */
+.data {
+  margin-top: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.data section {
+  margin: 10px 0;
+}

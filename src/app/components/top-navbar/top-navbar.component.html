@@ -1,0 +1,23 @@
+<nav>
+  <div class="main">
+    <div class="child hamburger">
+      <button (click)="sidebarToggle()">
+        <i>O</i>
+      </button>
+      <!-- Si el icono esta activo -->
+    </div>
+    <div class="child content">
+      <div>
+        <input type="text" placeholder="Buscar" />
+      </div>
+      <button>
+        <hr style="height: 20px" />
+        <div>
+          <img *ngIf="image" src="" alt="" />
+          <div class="not-image" *ngIf="!image"></div>
+        </div>
+        <div class="name">usuario&#64;gmail.com</div>
+      </button>
+    </div>
+  </div>
+</nav>

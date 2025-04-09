@@ -1,0 +1,15 @@
+/* Footer */
+footer {
+  margin-top: auto;
+  background: var(--footer-background);
+  padding: 1rem 10px;
+  width: 100%;
+  /* border-top: 1px solid #f3f3f3; */
+  font-size: 0.825rem;
+  font-family: 'roboto-light', sans-serif;
+}
+
+footer a {
+  color: var(--footer-resalt);
+  font-size: inherit;
+}

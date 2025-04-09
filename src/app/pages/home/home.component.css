@@ -1,0 +1,30 @@
+/* ALL CONTENT */
+/* .main {
+  background-color: blue;
+  transition: all 0.5s;
+} */
+/* PAGINA/CARD */
+.content {
+  position: relative;
+  padding: 1.8rem;
+}
+/* NOMBRE DE PAGINA */
+.content section.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+}
+/* BARRA BUSQUEDA/ FILTROS */
+.filter-bars {
+  /* display: flex; */
+  width: 100%;
+}
+.filter-bars input {
+  width: 100%;
+}
+/* CONTENT */
+.data {
+  overflow-x: auto;
+  white-space: nowrap;
+}
