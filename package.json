@@ -1,5 +1,5 @@
 {
-  "name": "Facturando-App",
+  "name": "facturando-app",
   "private": true,
   "scripts": {
     "ng": "ng",
