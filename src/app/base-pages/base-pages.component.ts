@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, inject } from '@angular/core';
 
 @Component({
   selector: 'app-base-pages',
@@ -15,16 +15,13 @@ export class BasePagesComponent implements OnInit {
   @Input('tabsData') tabsData: Object = [];
   @Input('anyOption') anyOption: boolean = true;
   @Input('optionButton') optionButton: string = 'Any Option';
-
-  constructor(
-    private http: HttpClient,
-    private component: ElementRef<HTMLElement>
-  ) {}
+  
+  component!: ElementRef<HTMLElement>
+  http!: HttpClient
+  constructor() {}
 
   ngOnInit(): void {
-    this.component.nativeElement
-      .querySelector('.main')
-      .setAttribute('style', `background-color: ${this.color}`);
+    this.component?.nativeElement.querySelector('.main')?.setAttribute('style', `background-color: ${this.color}`)
     // .style.backgroundColor = this.color //
   }
 }

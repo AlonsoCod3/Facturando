@@ -1,8 +1,9 @@
+import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-top-navbar',
-  imports: [],
+  imports: [NgIf],
   templateUrl: './top-navbar.component.html',
   styleUrl: './top-navbar.component.css',
 })
