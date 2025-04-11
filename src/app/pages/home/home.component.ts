@@ -8,7 +8,7 @@ import { BasePagesComponent } from '../../base-pages/base-pages.component';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  title;
+  title:string;
   titlePage = 'Bienvenida';
 
   constructor() {
