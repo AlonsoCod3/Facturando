@@ -1,1 +1,104 @@
-<p>general works!</p>
+<div>
+    <h1>{{ titlePage }}</h1>
+</div>
+<app-base-pages [color]="pickColor" [title]="title" [anyOption]="false" [searchbar]="false">
+    <div section="otherData">
+        <div class="title_section">
+            <h3>Activar opciones</h3>
+        </div>
+        <div class="option" *ngFor="let i of options">
+            <label for="{{i.id}}">{{i.label}}</label>
+            <input id="{{i.id}}" type="checkbox">
+        </div>
+    </div>
+    <div section="otherData">
+        <div class="title_section">
+            <h3>Cambiar colores</h3>
+        </div>
+        <div class="selector">
+            <ng-container *ngFor="let color of colorPicker">
+                <div class="item">
+                    <button [style.background-color]="color" (click)="selectColor(color)" #selector></button>
+                    <hr>
+                    <span>{{color}}</span>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div section="otherData">
+        <div class="title_section">
+            <h3>Crear tabla de datos</h3>
+        </div>
+        <form action="">
+            <div class="group">
+                <label for="">Ingrese endpoint (url) para obtener datos</label>
+                <input placeholder="Ingrese su endpoint">
+            </div>
+            <div class="group">
+                <label for="">Ingrse número de columnas</label>
+                <input type="number" placeholder="Número de columnas" (change)="createColumn(numberOfColumns)" #numberOfColumns>
+                <!--  -->
+                <div class="group" *ngIf="valueColumns">
+                    <section>
+                        <h4>Nombre de Columnas</h4>
+                    </section>
+                    <section class="names_columns">
+                        <ng-container *ngFor="let i of valueColumns; let index = index">
+                            <div class="drag item_{{index}}" draggable="true" (dragover)="onDrag($event)" (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)" [attr.data-name]="'valueColumns_{{index}}'">
+                                <div (click)="editColumn(valueColumnButton, valueColumnInput, index)" #valueColumnButton>
+                                    {{i}}
+                                </div>
+                                <input value="{{i}}" #valueColumnInput (change)="setColumn(valueColumnButton, valueColumnInput, index)" hidden disabled (keydown.esc)="setColumn(valueColumnButton, valueColumnInput, index)">
+                            </div>
+                        </ng-container>
+                    </section>
+                    <!-- <section>
+                        <button (click)="">
+                            Agregar
+                        </button>
+                    </section> -->
+                </div>
+            </div>
+            <div class="group">
+                <label for="">Tendra opciones adicionales</label>
+                <input type="checkbox">
+            </div>
+            <div class="group">
+                <button>Generar Previsualizacion</button>
+                <button>Generar Tabla</button>
+            </div>
+        </form>
+    </div>
+    <div section="otherData">
+        <div class="title_section">
+            <h3>Previsualizacion de datos</h3>
+        </div>
+        <section class="container_table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <ng-container *ngIf="!valueColumns">
+                            <td>Titulo</td>
+                        </ng-container>
+
+                        <ng-container *ngIf="valueColumns">
+                            <td *ngFor="let column of valueColumns"> {{ column }} </td>
+                        </ng-container>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <ng-container *ngIf="!valueColumns">
+                            <td>Valor</td>
+                        </ng-container>
+
+                        <ng-container *ngIf="valueColumns">
+                            <td *ngFor="let column of valueColumns; let index = index"> Valor {{ index }} </td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+</app-base-pages>
