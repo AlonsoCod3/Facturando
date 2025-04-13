@@ -11,6 +11,7 @@ import { Component, ElementRef, Input, OnInit, inject } from '@angular/core';
 export class BasePagesComponent implements OnInit {
   @Input('color') color: string = '';
   @Input('background') background: string = '';
+  @Input('titleSection') titleSection: boolean = true;
   @Input('title') title: string = '';
   @Input('searchbar') searchbar: boolean = true;
   @Input('tabsData') tabsData: Object = [];

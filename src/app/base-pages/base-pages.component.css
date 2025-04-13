@@ -47,3 +47,14 @@
 .data section {
   margin: 10px 0;
 }
+
+::ng-deep #resumenData {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  overflow-x: auto;
+  /* scrollbar-width:none */
+}
+::ng-deep #resumenData::-webkit-scrollbar {
+  display: none;
+}
