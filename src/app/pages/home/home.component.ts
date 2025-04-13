@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
 import { BasePagesComponent } from '../../base-pages/base-pages.component';
+import { CardComponent } from '../../components/card/card.component';
 
 @Component({
   selector: 'app-home',
-  imports: [BasePagesComponent],
+  imports: [BasePagesComponent, CardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  title:string;
-  titlePage = 'Bienvenida';
+  titlePage = 'Bienvenido Alonso';
 
-  constructor() {
-    this.title = 'Bienvenido Usuari@';
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }

@@ -1,10 +1,15 @@
 <div>
-  <p>{{ titlePage }}</p>
+  <h1>{{ titlePage }}</h1>
 </div>
 <app-base-pages
   [searchbar]="false"
-  [color]="'#f6f6f6'"
+  [color]="'white'"
+  [background]="'#151c26'"
   [anyOption]="false"
 >
-  <div section="otherData">hla como estas</div>
+  <div section="otherData">
+    @for (item of [].constructor(3); track $index) {
+      <app-card />
+    }
+  </div>
 </app-base-pages>
