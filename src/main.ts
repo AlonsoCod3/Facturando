@@ -1,10 +1,17 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterModule, provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import routes from './routes';
 
-bootstrapApplication(AppComponent, {
+@Component({
+  selector: 'app-root',
+  imports: [RouterModule],
+  template: `<router-outlet />`,
+})
+export class App {}
+
+bootstrapApplication(App, {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(),
