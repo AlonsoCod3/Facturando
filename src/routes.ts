@@ -5,7 +5,7 @@ const routes: Routes = [
     // Sin cuenta
     path: '',
     loadComponent: () =>
-      import('./app/topLevel/login/login.component').then(
+      import('./app/login/login.component').then(
         (m) => m.LoginComponent
       ),
     canMatch: [isNotLoggedGuard],
@@ -14,7 +14,7 @@ const routes: Routes = [
     // Con cuenta
     path: '',
     loadComponent: () =>
-      import('./app/topLevel/dashboard/dashboard.component').then(
+      import('./app/dashboard/dashboard.component').then(
         (m) => m.DashboardComponent
       ),
     children: [

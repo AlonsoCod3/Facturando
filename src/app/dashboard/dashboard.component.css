@@ -22,7 +22,7 @@
   flex-direction: column;
   min-height: 100%;
   margin-left: 268px;
-  transition: all 1s;
+  transition: all var(--time-animation);
   width: calc(100% - 258px);
   overflow-y: scroll;
 }
