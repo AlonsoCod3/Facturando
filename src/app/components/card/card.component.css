@@ -1,0 +1,32 @@
+.main{
+    padding: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    position: relative;
+    width: 250px;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.title {
+    width: 100%;
+    font-size: 32px;
+}
+.eye-show{
+    position: absolute;
+    top: 50px;
+    right: 20px;
+}
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.content > div {
+    display: inline;
+}
+.content > div:last-child {
+    font-weight: 500;
+}
