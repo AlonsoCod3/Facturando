@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 export class SidebarComponent {
   public image: boolean = false;
 
-  public NAME: string = 'Dashboard Template';
+  public NAME: string = 'Facturando';
 
   @Input() isOpen: boolean = false;
   @Output() toggleSidebar: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -20,7 +20,7 @@ export class SidebarComponent {
 
   public routes = [
     ['', 'not', 'Inicio'],
-    ['config', 'not', 'Configuración'],
+    // ['config', 'not', 'Configuración'],
   ];
 
   public sidebarToggle() {
