@@ -10,6 +10,7 @@ import { Component, ElementRef, Input, OnInit, inject } from '@angular/core';
 })
 export class BasePagesComponent implements OnInit {
   @Input('color') color: string = '';
+  @Input('background') background: string = '';
   @Input('title') title: string = '';
   @Input('searchbar') searchbar: boolean = true;
   @Input('tabsData') tabsData: Object = [];
@@ -21,7 +22,8 @@ export class BasePagesComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.component?.nativeElement.querySelector('.main')?.setAttribute('style', `background-color: ${this.color}`)
+    // this.component?.nativeElement.querySelector('.main')?.setAttribute('style', `background-color: ${this.background}`)
+    // this.component?.nativeElement.querySelector('.main')?.setAttribute('style', `color: ${this.color}`)
     // .style.backgroundColor = this.color //
   }
 }
