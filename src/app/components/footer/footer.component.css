@@ -7,6 +7,7 @@ footer {
   /* border-top: 1px solid #f3f3f3; */
   font-size: 0.825rem;
   font-family: 'roboto-light', sans-serif;
+  height: 40px;
 }
 
 footer a {
