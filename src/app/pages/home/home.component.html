@@ -1,15 +1,36 @@
-<div>
-  <h1>{{ titlePage }}</h1>
-</div>
-<app-base-pages
-  [searchbar]="false"
-  [color]="'white'"
-  [background]="'#151c26'"
-  [anyOption]="false"
->
-  <div section="otherData">
-    @for (item of [].constructor(3); track $index) {
-      <app-card />
-    }
+<section class="content">
+  <div class="title">
+    <h1>{{ titlePage }}</h1>
   </div>
-</app-base-pages>
+  <main>
+    <section class="section-resumen">
+      <div class="section-card dark" data-pad="20">
+        <section class="c-width gap" data-gap="20">
+          @for (item of [].constructor(5); track $index) {
+            <app-card />
+          }
+        </section>
+      </div>
+    </section>
+    <section class="section-data">
+      <div class="section-card light" data-pad="20">
+        <section class="child c-height">
+            <p class="title-separate">ultimos movimientos</p>
+            <ul class="movimientos">
+              @for ( mov of [].constructor(12); track $index) {
+                <li class="movimiento">
+                  <span>Juan Perez</span>
+                  <span>S/. 80.00</span>
+                </li>
+              }
+            </ul>
+        </section>
+      </div>
+      <div class="section-card dark" data-pad="20">
+        <section class="child c-height">
+          <p>19/04/2025</p>
+        </section>
+      </div>
+    </section>
+  </main>
+</section>

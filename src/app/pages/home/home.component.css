@@ -1,30 +1,100 @@
+/* COMPONENT */
+:host {
+  display: flex;
+  height: 100%;
+}
 /* ALL CONTENT */
-/* .main {
-  background-color: blue;
-  transition: all 0.5s;
-} */
-/* PAGINA/CARD */
 .content {
-  position: relative;
-  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 /* NOMBRE DE PAGINA */
-.content section.header {
+.content .title {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 40px;
 }
-/* BARRA BUSQUEDA/ FILTROS */
-.filter-bars {
-  /* display: flex; */
-  width: 100%;
+/* CONTENEDOR SECCIONES */
+main {
+  display:grid;
+  overflow: hidden;
+  flex: 1;
+  flex-grow: 1;
+  height: 100%;
+  /* grid-template-columns: minmax(0, 100%); */
+  grid-template-rows: min-content 1fr;
+  gap: 10px;
 }
-.filter-bars input {
-  width: 100%;
+/* ESTILO DE TARJETA SECCIONES */
+.section-card {
+  border-radius: 5px;
+  padding:attr(data-pad px);
+  scrollbar-width:none
 }
-/* CONTENT */
-.data {
+.section-card > *::-webkit-scrollbar {
+  display: none;
+}
+.c-width {
+  display: flex;
+  flex-direction: row;
   overflow-x: auto;
-  white-space: nowrap;
+}
+.c-height {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.gap {
+  gap: attr(data-gap px)
+}
+.dark {
+  background-color: #151c26;
+  color: white;
+}
+.light {
+  background-color: beige;
+  color: #151c26;
+  border: 1px solid #151c26;
+}
+
+/* SECCION 1 */
+.section-resumen{
+  overflow-x: hidden;
+  scrollbar-width: none;
+  max-width: 100vw;
+}
+/* SECCION 2 */
+.section-data {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  gap: 10px;
+  overflow: hidden;
+}
+.section-data .section-card{
+  flex: 1;
+}
+.section-data .section-card:last-child{
+  flex: 1.5;
+}
+
+.title-separate {
+  border-bottom:1px solid black;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.movimientos{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+.movimiento {
+  display: flex;
+  justify-content: space-between;
 }
