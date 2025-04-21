@@ -74,7 +74,8 @@ nav {
   height: var(--height-profile);
   margin: auto;
   border-radius: 100px;
-  background-color: white;
+  /* background-color: white; */
+  border: 1px solid var(--text-color);
 }
 .profile-img img {
   width: 100%;
