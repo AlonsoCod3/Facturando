@@ -26,20 +26,20 @@
           </ul>
         </section>
       </div>
-      <div class="section-card dark" data-pad="20">
+      <div class="section-card dark" id="daily" data-pad="20">
         <section class="header-section">
           <div><button>*</button></div>
           <div class="date"><p>19/04/2025</p></div>
           <div><button>+</button></div>
         </section>
-        <section class="content-section">
-          @for (item of [].constructor(5); track $index) {
-            <app-card [typo]="'daily'"/>
-          }
+        <section class="content-section c-height">
+          <div class="movimientos">
+            @for (item of [].constructor(15); track $index) {
+              <app-card [typo]="'daily'"/>
+            }
+          </div>
         </section>
-        <section class="footer-section">
-
-        </section>
+        <!-- <section class="footer-section"></section> -->
       </div>
     </section>
   </main>

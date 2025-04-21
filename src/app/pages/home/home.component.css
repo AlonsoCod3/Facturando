@@ -47,6 +47,7 @@ main {
   flex-direction: column;
   height: 100%;
   border-radius: 5px;
+  overflow: hidden;
 }
 .gap {
   gap: attr(data-gap px)
@@ -100,12 +101,22 @@ main {
     justify-content: space-between;
   }
 }
+#daily {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
 .header-section {
   display: flex;
-  flex-grow: 1;
   text-align: center;
   .date {
     flex: 1;
   }
+}
+.content-section .movimientos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 160px);
+  gap: 10px;
+  justify-content: space-around;
 }
