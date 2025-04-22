@@ -40,11 +40,14 @@ main {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
+  border-radius: 5px;
 }
 .c-height {
   display: flex;
   flex-direction: column;
   height: 100%;
+  border-radius: 5px;
+  overflow: hidden;
 }
 .gap {
   gap: attr(data-gap px)
@@ -93,8 +96,27 @@ main {
   gap: 10px;
   overflow: auto;
   scrollbar-width: none;
+  .movimiento {
+    display: flex;
+    justify-content: space-between;
+  }
 }
-.movimiento {
+#daily {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header-section {
+  display: flex;
+  text-align: center;
+  .date {
+    flex: 1;
+  }
+}
+.content-section .movimientos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 160px);
+  gap: 10px;
+  justify-content: space-around;
 }
