@@ -1,1 +1,40 @@
-<p>ticket works!</p>
+<div class="main-container">
+    <header>
+        <div id="searchBar">
+            <input type="text" placeholder="Buscar Boletas">
+        </div>
+        <button>+ Nueva</button>
+    </header>
+    <section class="content">
+        <article id="now">
+            <div class="header-bar">
+                <div class="title">
+                    Hoy
+                </div>
+                <div class="buttonActions">
+                    <button>Grid</button>
+                    <button>List</button>
+                </div>
+            </div>
+            <section class="last-tickets">
+                <div class="section-card dark expand" data-pad="20" #card>
+                  <section class="c-height gap" data-gap="20">
+                    @for (item of [].constructor(5); track $index) {
+                      <app-card [typo]="'resumen'" />
+                    }
+                    <button>
+                        Ver listado
+                    </button>
+                </section >
+                <div class="options">
+                    <button class="float" (click)="controlCard()">
+                        Ver más
+                    </button>
+                </div>
+                </div>
+            </section>
+    
+        </article>
+    
+    </section>
+</div>
