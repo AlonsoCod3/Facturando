@@ -2,6 +2,9 @@
   display: flex;
   height: 100vh;
 }
+::ng-deep .content:has(router-outlet + app-home) {
+  height: 100% !important;
+}
 .header {
   position: fixed;
   top: 0;
@@ -17,7 +20,7 @@
 }
 .content {
   display: flex;
-  height: 100%;
+  min-height: 100%;
   /* flex-grow: 1; */
   flex-direction: column;
   /* min-height: 100%; */
