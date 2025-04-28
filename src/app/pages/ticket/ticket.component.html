@@ -12,29 +12,85 @@
                     Hoy
                 </div>
                 <div class="buttonActions">
-                    <button>Grid</button>
-                    <button>List</button>
+                    <button (click)="changeData('grid', cardNow)">Grid</button>
+                    <button (click)="changeData('list', cardNow)">List</button>
                 </div>
             </div>
             <section class="last-tickets">
-                <div class="section-card dark expand" data-pad="20" #card>
-                  <section class="c-height gap" data-gap="20">
-                    @for (item of [].constructor(5); track $index) {
-                      <app-card [typo]="'resumen'" />
-                    }
-                    <button>
-                        Ver listado
-                    </button>
-                </section >
-                <div class="options">
-                    <button class="float" (click)="controlCard()">
-                        Ver más
-                    </button>
-                </div>
+                <div class="section-card dark" data-pad="20" #cardNow>
+                    <section class="c-height gap" data-gap="20">
+                        @for (item of [].constructor(5); track $index) {
+                        <app-card [typo]="'resumen'" />
+                        }
+                        <button>
+                            Ver listado
+                        </button>
+                    </section >
+                    <div class="options">
+                        <button class="float" (click)="controlCard(cardNow)">
+                            Ver más
+                        </button>
+                    </div>
                 </div>
             </section>
-    
         </article>
-    
+
+        <article id="yesterday">
+            <div class="header-bar">
+                <div class="title">
+                    Ayer
+                </div>
+                <div class="buttonActions">
+                    <button (click)="changeData('grid',cardYesterday)">Grid</button>
+                    <button (click)="changeData('list',cardYesterday)">List</button>
+                </div>
+            </div>
+            <section class="last-tickets">
+                <div class="section-card dark" data-pad="20" #cardYesterday>
+                    <section class="c-width gap" data-gap="20">
+                        @for (item of [].constructor(5); track $index) {
+                        <app-card [typo]="'resumen'" />
+                        }
+                        <button>
+                            Ver listado
+                        </button>
+                    </section >
+                    <div class="options">
+                        <button class="float" (click)="controlCard(cardYesterday)">
+                            Ver más
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="dayBefore">
+            <div class="header-bar">
+                <div class="title">
+                    Ultima semana
+                </div>
+                <div class="buttonActions">
+                    <button (click)="changeData('grid',cardBefore)">Grid</button>
+                    <button (click)="changeData('list',cardBefore)">List</button>
+                </div>
+            </div>
+            <section class="last-tickets">
+                <div class="section-card dark" data-pad="20" #cardBefore>
+                    <section class="c-width gap" data-gap="20">
+                        @for (item of [].constructor(5); track $index) {
+                        <app-card [typo]="'resumen'" />
+                        }
+                        <button>
+                            Ver listado
+                        </button>
+                    </section >
+                    <div class="options">
+                        <button class="float" (click)="controlCard(cardBefore)">
+                            Ver más
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </article>
     </section>
 </div>
