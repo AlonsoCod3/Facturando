@@ -1,9 +1,10 @@
 import { Component, ElementRef, ViewChild, viewChild } from '@angular/core';
 import { CardComponent } from '../../components/card/card.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ticket',
-  imports: [CardComponent],
+  imports: [CardComponent, RouterLink],
   templateUrl: './ticket.component.html',
   styleUrl: './ticket.component.css'
 })
