@@ -39,6 +39,13 @@ const routes: Routes = [
             (m) => m.TicketComponent
           ),
       },
+      {
+        path: 'tickets/new',
+        loadComponent: () =>
+        import('./app/pages/ticket/new/new.component').then(
+          (m) => m.NewComponent
+          ),
+      },
     ],
   },
   {
