@@ -34,17 +34,10 @@ const routes: Routes = [
       // },
       {
         path: 'tickets',
-        loadComponent: () =>
-          import('./app/pages/ticket/ticket.component').then(
-            (m) => m.TicketComponent
-          ),
-      },
-      {
-        path: 'tickets/new',
-        loadComponent: () =>
-        import('./app/pages/ticket/new/new.component').then(
-          (m) => m.NewComponent
-          ),
+        children: [
+          { path: "", loadComponent: () => import('./app/pages/ticket/ticket.component').then( (m) => m.TicketComponent ) },
+          { path: "new", loadComponent: () => import('./app/pages/ticket/new/new.component').then( (m) => m.NewComponent ) }
+        ]
       },
     ],
   },
