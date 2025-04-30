@@ -18,13 +18,14 @@ header {
     flex-direction: row;
     gap: 20px;
     height: 100%;
+    overflow: hidden;
+    margin-left: -1.7rem;
     >div {
         border: 1px solid #95acbf;
         align-content: center;
         background-color:#e9eae4;
     }
     .laderBar {
-        margin-left: -1.7rem;
         border-left: none;
         border-radius: 0px 5px 5px 0px;
         padding: 20px;
@@ -53,7 +54,93 @@ header {
         }
     }
     .data {
+        display: flex;
+        flex-direction: column;
         flex: 1;
         border-radius: 5px;
+        padding: 20px;
+        table {
+            display: grid;
+            gap: 10px;
+            color: grey;
+            height: 100%;
+            border-spacing: 5px 10px;
+            grid-template-rows: min-content min-content 1fr min-content;
+            caption {
+                background-color: #fff;
+            }
+            thead {
+                background-color: #fff;
+                tr {
+                    display: grid;
+                    grid-template-columns: repeat(2, 70px) 1fr repeat(3, 70px);
+                    gap: 10px;
+                    align-content: center;
+                }
+                th, td{
+                    padding: 5px 10px;
+                }
+            }
+            tbody {
+                overflow-y: auto;
+                display: grid;
+                row-gap: 10px;
+                grid-auto-rows: min-content;
+                tr {
+                    display: grid;
+                    grid-template-columns: repeat(2, 70px) 1fr repeat(3, 70px);
+                    gap: 10px;
+                }
+                tr:last-child {
+                    grid-template-columns: 1fr ;
+                    text-align: center;
+                    border: 1px dashed black;
+                }
+                td:not(:last-child){
+                    background-color: #fff;
+                }
+                td:first-child input{
+                    text-align: end;
+                }
+                td:nth-child(3) {
+                    flex: 3
+                }
+                td:last-child:not(.addItem) {
+                    display: flex;
+                    justify-content: space-between;
+                    button{
+                        background-color: #fff;
+                        padding: 5px 10px;
+                        border: 1px solid;
+                        border-radius: 3px;
+                    }
+                }
+                td > input{
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    padding-inline: 10px;
+                }
+            }
+            tfoot {
+                display: grid;
+                row-gap: 10px;
+                tr {
+                    display: grid;
+                    grid-template-columns: 1fr 70px;
+                    text-align: end;
+                    column-gap: 10px;
+                    span {
+                        width: 100%;
+                    }
+                    td {
+                        background-color: #fff;
+                        height: 100%;
+                        border: none;
+                        padding-inline: 10px;
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 <div class="main-container">
     <header>
-        <button><</button>
+        <button routerLink=".."><</button>
         <!-- [routerLink]="['new']" -->
         <div id="searchBar">
             <span>Nueva Boleta</span>
@@ -62,7 +62,54 @@
             </form>
         </div>
         <div class="data">
-            content datas
+            <table>
+                <caption>
+                    <span> <i>X</i> Productos</span>
+                </caption>
+                <thead>
+                    <tr>
+                        <th>Cant.</th>
+                        <th>Cod.</th>
+                        <th>Descripcion</th>
+                        <th>P. Uni.</th>
+                        <th>P. Tot.</th>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of [].constructor(2); track $index) {
+                    <tr>
+                        <td><input type="text" value="1"></td>
+                        <td><input type="text" value="1"></td>
+                        <td><input type="text" value="Ceviche mixto"></td>
+                        <td><input type="text" value="22.00"></td>
+                        <td><input type="text" value="22.00"></td>
+                        <td><button>X</button> <button>X</button></td>
+                    </tr>
+                    }
+                    <!-- button add -->
+                    <tr>
+                        <td colspan="all" class="addItem" (click)="addItem()">
+                            <!-- <button >Añadir item</button> -->
+                            Añadir item
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <span>Ope. gravada</span>
+                        <td>20.00</td>
+                    </tr>
+                    <tr>
+                        <span>IGV</span>
+                        <td>2.00</td>
+                    </tr>
+                    <tr>
+                        <span>Importe Total</span>
+                        <td>22.00</td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </section>
 </div>
