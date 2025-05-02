@@ -22,9 +22,9 @@
                         <div>
                             <span>
                                 <i class="fa fa-id-card"></i>
-                                <input type="text" placeholder="Documento" maxlength="8">
+                                <input type="text" placeholder="Documento" maxlength="8" (input)="onInputDocument(document.value)" #document>
                             </span>
-                            <button><i class="fa fa-tag"></i></button>
+                            <button type="button" (click)="addFavorite()"><i class="fa fa-tag"></i></button>
                         </div>
                         <span>
                             <i class="fa fa-user"></i>
@@ -96,7 +96,7 @@
                         <td><input type="text" value="Ceviche mixto"></td>
                         <td><input type="text" value="22.00"></td>
                         <td><input type="text" value="22.00"></td>
-                        <td><button>X</button> <button>X</button></td>
+                        <td><button><i class="fa fa-edit"></i></button> <button><i class="fa fa-trash"></i></button></td>
                     </tr>
                     }
                     <!-- button add -->
@@ -125,3 +125,14 @@
         </div>
     </section>
 </div>
+
+<dialog closedby="any" #dialog>
+    <article>
+        hola
+        <form  method="dialog">
+            <button>
+                cerrar
+            </button>
+        </form>
+    </article>
+</dialog>
