@@ -46,11 +46,11 @@
     
                     <div class="checks">
                         <label for="10">
-                            <input type="radio" name="igv" id="10">
+                            <input type="radio" name="igv" id="10" [value]="10/100" [formControl]="igv" checked>
                             10%
                         </label>
                         <label for="18">
-                            <input type="radio" name="igv" id="18">
+                            <input type="radio" name="igv" id="18" [value]="18/100" [formControl]="igv">
                             18%
                         </label>
                     </div>
@@ -89,13 +89,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (item of [].constructor(2); track $index) {
+                    @for (item of products; track $index) {
                     <tr>
-                        <td><input type="text" value="1"></td>
-                        <td><input type="text" value="1"></td>
-                        <td><input type="text" value="Ceviche mixto"></td>
-                        <td><input type="text" value="22.00"></td>
-                        <td><input type="text" value="22.00"></td>
+                        <td><span class="right">{{item.cantidad}}</span></td>
+                        <td><span>1</span></td>
+                        <td><span>{{item.nombre}}</span></td>
+                        <td><span class="right">{{item.precio | number:'1.2-2'}}</span></td>
+                        <td><span class="right">{{item.total | number:'1.2-2'}}</span></td>
                         <td><button><i class="fa fa-edit"></i></button> <button><i class="fa fa-trash"></i></button></td>
                     </tr>
                     }
@@ -110,15 +110,15 @@
                 <tfoot>
                     <tr>
                         <span>Ope. gravada</span>
-                        <td>20.00</td>
+                        <td>{{totalAmount / (1 + igv.value!) | number:'1.2-2'}}</td>
                     </tr>
                     <tr>
                         <span>IGV</span>
-                        <td>2.00</td>
+                        <td>{{(totalAmount / (1 + igv.value!)) * igv.value! | number:'1.2-2'}}</td>
                     </tr>
                     <tr>
                         <span>Importe Total</span>
-                        <td>22.00</td>
+                        <td>{{totalAmount | number:'1.2-2'}}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -150,12 +150,17 @@
                     Precio
                     <span>
                         S/.
-                        <input type="text" class="price" placeholder="00.00" [formControl]="p_price" >
+                        <input type="text" class="price" placeholder="00.00" [formControl]="p_price" (keypress)="numberPress($event)">
                     </span>
                 </label>
-                <span>
-                    <input placeholder="Descripcion... (Opcional)" [formControl]="p_description" (input)="firstLetter($event)">
-                </span>
+                <div class="amount">
+                    Cantidad
+                    <span><button type="button" (click)="subtractAmount()">-</button></span>
+                    <span>
+                        <input placeholder="Cantidad" [formControl]="p_amount" (keypress)="numberPress($event)" id="amount">
+                    </span>
+                    <span><button type="button" (click)="addAmount()">+</button></span>
+                </div>
             </div>
         </section>
         <!-- <section class="more">
@@ -187,7 +192,7 @@
         </section> -->
         <section class="buttton">
             <button (click)="addItem()">
-                Crear
+                Añadir producto
             </button>
         </section>
     </article>
