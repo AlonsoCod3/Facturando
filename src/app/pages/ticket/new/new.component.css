@@ -254,7 +254,7 @@ dialog {
             justify-content: space-between;
             width: 100%;
             div:last-child{
-                width: 70px;
+                width: 90px;
                 input{
                     width: 100%;
                 }
@@ -324,7 +324,7 @@ dialog {
             float: right;
             outline: none;
             &:focus {
-                border: 3px solid #95acbf;
+                outline: 3px solid #95acbf;
             }
 
         }
