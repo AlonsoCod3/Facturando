@@ -110,6 +110,8 @@ header {
             grid-template-rows: min-content min-content 1fr min-content;
             caption {
                 background-color: #fff;
+                height: 27px;
+                align-content: center;
             }
             thead {
                 background-color: #fff;
@@ -244,11 +246,12 @@ dialog {
         }
     }
     article {
-        padding-block: 5px;
+        padding-block: 10px;
+        display: grid;
+        gap: 20px;
         .header {
             display: inline-flex;
             justify-content: space-between;
-            padding-block: 10px;
             width: 100%;
             div:last-child{
                 width: 70px;
@@ -261,13 +264,12 @@ dialog {
             div {
                 display: flex;
                 flex-direction: column;
-                gap: 10px;
+                gap: 20px;
             }
             label {
                 display: flex;
                 gap: 20px;
                 align-items: center;
-                padding-block: 10px;
             }
             span {
                 flex: 1;
@@ -313,13 +315,18 @@ dialog {
                 }
             }
         }
-        > button:last-child {
+        .buttton > button{
             padding: 5px 10px;
             border-radius: 10px;
             border: none;
             background-color: black;
             color: whitesmoke;
             float: right;
+            outline: none;
+            &:focus {
+                border: 3px solid #95acbf;
+            }
+
         }
     }
 }

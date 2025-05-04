@@ -14,6 +14,9 @@ export class NewComponent {
   @ViewChild("client_name") name!:ElementRef
   @ViewChild("client_address") address!:ElementRef
 
+  variantes:any
+  products:any
+
   constructor(
     private clientService:ClientService
   ){}

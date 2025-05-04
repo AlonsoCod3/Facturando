@@ -76,7 +76,7 @@
         <div class="data">
             <table>
                 <caption>
-                    <span> <i>X</i> Productos</span>
+                    <span> <i class="fa fa-bag-shopping"></i> Productos</span>
                 </caption>
                 <thead>
                     <tr>
@@ -140,7 +140,7 @@
             </div>
             <div>
                 <span>
-                    <input type="text" name="" id="" placeholder="----">
+                    <input type="text" name="" id="" placeholder="----" tabindex="-1">
                 </span>
             </div>
         </section>
@@ -153,10 +153,10 @@
                         <input type="text" class="price" placeholder="00.00">
                     </span>
                 </label>
-                <textarea name="" id="" cols="30" rows="10" placeholder="Descripcion..."></textarea>
+                <textarea name="" id="" cols="30" rows="10" placeholder="Descripcion... (Opcional)"></textarea>
             </div>
         </section>
-        <section class="more">
+        <!-- <section class="more">
             <div>
                 <label for="variants">
                     Variantes
@@ -182,14 +182,11 @@
                 </div>
                 <button><i class="fa fa-plus"></i></button>
             </section>
+        </section> -->
+        <section class="buttton">
+            <button (click)="log($event)">
+                Crear
+            </button>
         </section>
-        <!-- @if(more) { -->
-            <section class="more_variants">
-                
-            </section>
-        <!-- } -->
-        <button>
-            Crear
-        </button>
     </article>
 </dialog>
