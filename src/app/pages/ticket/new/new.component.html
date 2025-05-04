@@ -61,7 +61,7 @@
                         <label for="">
                             <i>X</i> Items:
                         </label>
-                        <button>Nuevo</button>
+                        <button class="primary">Nuevo</button>
                     </div>
     
                     <div class="result">
@@ -117,8 +117,11 @@
                         <td>{{(totalAmount / (1 + igv.value!)) * igv.value! | number:'1.2-2'}}</td>
                     </tr>
                     <tr>
-                        <span>Importe Total</span>
+                        <span><b>Importe Total</b></span>
                         <td>{{totalAmount | number:'1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <button class="primary">Emitir Boleta</button>
                     </tr>
                 </tfoot>
             </table>
@@ -191,7 +194,7 @@
             </section>
         </section> -->
         <section class="buttton">
-            <button (click)="addItem()">
+            <button class="primary" (click)="addItem()">
                 Añadir producto
             </button>
         </section>

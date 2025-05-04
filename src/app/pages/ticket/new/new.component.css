@@ -13,6 +13,23 @@ header {
         text-align: center;
     }
 }
+
+button.primary {
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: none;
+    background-color: grey;
+    font-size: 1rem;
+    color: whitesmoke;
+    float: right;
+    outline: none;
+    &:hover {
+        background-color: black;
+    }
+    &:focus {
+        outline: 3px solid #95acbf;
+    }
+}
 .content {
     display: flex;
     flex-direction: row;
@@ -24,6 +41,9 @@ header {
         border: 1px solid #95acbf;
         align-content: center;
         background-color:#e9eae4;
+    }
+    button {
+        cursor: pointer;
     }
     .laderBar {
         border-left: none;
@@ -159,7 +179,7 @@ header {
                         button{
                             background-color: #fff;
                             padding: 5px 10px;
-                            border: 1px solid;
+                            border: none;
                             border-radius: 3px;
                         }
                     }
@@ -184,6 +204,9 @@ header {
                     grid-template-columns: 1fr 70px;
                     text-align: end;
                     column-gap: 10px;
+                    &:last-child {
+                        grid-template-columns: 1fr;
+                    }
                     span {
                         width: 100%;
                     }
@@ -335,20 +358,6 @@ dialog {
                     }
                 }
             }
-        }
-        .buttton > button{
-            padding: 8px 16px;
-            border-radius: 10px;
-            border: none;
-            background-color: black;
-            font-size: 1rem;
-            color: whitesmoke;
-            float: right;
-            outline: none;
-            &:focus {
-                outline: 3px solid #95acbf;
-            }
-
         }
     }
 }
