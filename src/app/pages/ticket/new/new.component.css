@@ -20,7 +20,7 @@ header {
     height: 100%;
     overflow: hidden;
     margin-left: -1.7rem;
-    >div {
+    > div {
         border: 1px solid #95acbf;
         align-content: center;
         background-color:#e9eae4;
@@ -59,9 +59,9 @@ header {
                     position: relative;
                     background: none;
                 }
-            }
-            span:has(input:focus){
-                border: 1px solid red;
+                &:has(input:focus){
+                    border: 1px solid red;
+                }
             }
             section:first-child .result > div{
                 display: flex;
@@ -132,29 +132,37 @@ header {
                     display: grid;
                     grid-template-columns: repeat(2, 70px) 1fr repeat(3, 70px);
                     gap: 10px;
+                    &:last-child {
+                        grid-template-columns: 1fr ;
+                        text-align: center;
+                        border: 1px dashed grey;
+                    }
+                    &:has(td.addItem:hover) {
+                        border-color: black;
+                        color: black;
+                        background-color: lightgray;
+                        cursor: pointer;
+                    }
                 }
-                tr:last-child {
-                    grid-template-columns: 1fr ;
-                    text-align: center;
-                    border: 1px dashed grey;
-                }
-                td:not(:last-child){
-                    background-color: #fff;
-                }
-                td:first-child input{
-                    text-align: end;
-                }
-                td:nth-child(3) {
-                    flex: 3
-                }
-                td:last-child:not(.addItem) {
-                    display: flex;
-                    justify-content: space-between;
-                    button{
+                td {
+                    &:not(:last-child){
                         background-color: #fff;
-                        padding: 5px 10px;
-                        border: 1px solid;
-                        border-radius: 3px;
+                    }
+                    &:first-child input{
+                        text-align: end;
+                    }
+                    &:nth-child(3) {
+                        flex: 3
+                    }
+                    &:last-child:not(.addItem) {
+                        display: flex;
+                        justify-content: space-between;
+                        button{
+                            background-color: #fff;
+                            padding: 5px 10px;
+                            border: 1px solid;
+                            border-radius: 3px;
+                        }
                     }
                 }
                 td > input{
@@ -162,12 +170,6 @@ header {
                     height: 100%;
                     border: none;
                     padding-inline: 10px;
-                }
-                tr:has(td.addItem:hover) {
-                    border-color: black;
-                    color: black;
-                    background-color: lightgray;
-                    cursor: pointer;
                 }
             }
             tfoot {
@@ -193,13 +195,135 @@ header {
     }
 }
 dialog {
-    position: absolute;
-    opacity: .5;
     top: 50%;
     left: 50%;
     border: none;
-    width: 300px;
-    height: 300px;
-    margin-left: -150px;
-    margin-top: -150px;
+    background-color: #E9EAE4;
+    width: 450px;
+    padding: 50px 20px 21px;
+    border-radius: 10px;
+    position: relative;
+    transform: translate(-50%, -50%);
+    form {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        button {
+            border-radius: 50%;
+            border: 2px solid;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+        }
+    }
+    button, input[type=checkbox] {
+        cursor: pointer;
+    }
+    span {
+        display: inline-flex;
+        padding: 4px 11px;
+        border-radius: 100px;
+        background-color: white;
+        color: gray;
+        transition: all .3s;
+        i {
+            align-content: center;
+        }
+        .price {
+            text-align: right;
+        }
+        input {
+            outline: none;
+            border: none;
+            height: 25px;
+            width: 100%;
+            text-indent:  10px;
+            border: none;
+            position: relative;
+            background: none;
+        }
+    }
+    article {
+        padding-block: 5px;
+        .header {
+            display: inline-flex;
+            justify-content: space-between;
+            padding-block: 10px;
+            width: 100%;
+            div:last-child{
+                width: 70px;
+                input{
+                    width: 100%;
+                }
+            }
+        }
+        .body {
+            div {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            label {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                padding-block: 10px;
+            }
+            span {
+                flex: 1;
+            }
+            textarea {
+                border: none;
+                border-radius: 5px;
+                padding: 4px 11px;
+                max-width: 100%;
+            }
+        }
+        .more {
+            padding-block: 10px;
+            label {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                padding-block: 10px;
+            }
+            .items {
+                display: grid;
+                gap: 10px;
+                margin-bottom: 10px;
+                .item{
+                    display: grid;
+                    grid-template-columns: 70px repeat(2, 1fr);
+                    gap: 15px;
+                }
+            }
+            .body_more {
+                display: grid;
+                gap: 10px;
+                grid-template-columns: 1fr;
+                padding-block: 10px;
+                button {
+                    height: 25px;
+                    background: none;
+                    border: 1px solid black;
+                    border-radius: 5px;
+                    &:hover {
+                        background-color: red;
+                    }
+                }
+            }
+        }
+        > button:last-child {
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: none;
+            background-color: black;
+            color: whitesmoke;
+            float: right;
+        }
+    }
 }
+dialog::backdrop {
+    background-color: black;
+    opacity: .5;
+  }
