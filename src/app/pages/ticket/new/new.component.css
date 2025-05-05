@@ -24,7 +24,12 @@ button.primary {
     float: right;
     outline: none;
     &:hover {
-        background-color: black;
+        &:not(:disabled){
+            background-color: black;
+        }
+    }
+    &:disabled{
+        background-color: red;
     }
     &:focus {
         outline: 3px solid #95acbf;
@@ -43,7 +48,9 @@ button.primary {
         background-color:#e9eae4;
     }
     button {
-        cursor: pointer;
+        &:not(:disabled){
+            cursor: pointer;
+        }
     }
     .laderBar {
         border-left: none;
@@ -231,7 +238,7 @@ dialog {
     border-radius: 10px;
     position: relative;
     transform: translate(-50%, -50%);
-    form {
+    >form {
         position: absolute;
         top: 20px;
         right: 20px;
@@ -243,7 +250,7 @@ dialog {
             text-align: center;
         }
     }
-    button, input[type=checkbox] {
+    button:not(:disabled), input[type=checkbox] {
         cursor: pointer;
     }
     span {
@@ -269,11 +276,26 @@ dialog {
             position: relative;
             background: none;
         }
+        /*validationes*/
+        &:has(input.ng-invalid:not(form).ng-touched) {
+            color: red;
+        }
+        &:has(input.ng-invalid:not(form).ng-touched::placeholder) {
+            color: red;
+        }
+        &:has(input.ng-valid:not(form).ng-touched) {
+            border: 1px solid #005ea6;
+        }
+        &:has(input.ng-invalid:not(form).ng-touched) {
+            border: 1px solid red;
+        }
     }
     article {
-        padding-block: 10px;
-        display: grid;
-        gap: 20px;
+        form {
+            padding-block: 10px;
+            display: grid;
+            gap: 20px;
+        }
         .header {
             display: inline-flex;
             justify-content: space-between;
@@ -364,4 +386,15 @@ dialog {
 dialog::backdrop {
     background-color: black;
     opacity: .5;
-  }
+}
+.temblor {
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
