@@ -1,0 +1,200 @@
+<div class="main-container">
+    <header>
+        <button routerLink=".."><</button>
+        <!-- [routerLink]="['new']" -->
+        <div id="searchBar">
+            <span>Nueva Boleta</span>
+        </div>
+    </header>
+    <section class="content">
+        <div class="laderBar">
+            <div class="date">
+                <i class="fa fa-calendar"></i> __ / __ / __
+            </div>
+            <form>
+                <section>
+                    <div>
+                        <label for="">
+                            <i class="fa fa-user"></i> Datos:
+                        </label>
+                    </div>
+                    <div class="result">
+                        <div>
+                            <span>
+                                <i class="fa fa-id-card"></i>
+                                <input type="text" placeholder="Documento" maxlength="8" (input)="onInputDocument(document.value)" #document>
+                            </span>
+                            <button type="button" (click)="addFavorite()"><i class="fa fa-tag"></i></button>
+                        </div>
+                        <span>
+                            <i class="fa fa-user"></i>
+                            <input type="text" placeholder="Cliente (Opcional)" class="client" #client_name>
+                        </span>
+                        <span>
+                            <i class="fa fa-house"></i>
+                            <input type="text" placeholder="Direccion (Opcional)" class="address" #client_address>
+                        </span>
+                    </div>
+                </section>
+
+                <section>
+                    <div>
+                        <p>
+                            <i class="fa fa-percent"></i> IGV:
+                        </p>
+                    </div>
+    
+                    <div class="checks">
+                        <label for="10">
+                            <input type="radio" name="igv" id="10" [value]="10/100" [formControl]="igv" checked>
+                            10%
+                        </label>
+                        <label for="18">
+                            <input type="radio" name="igv" id="18" [value]="18/100" [formControl]="igv">
+                            18%
+                        </label>
+                    </div>
+                </section>
+
+                <section>
+                    <div>
+                        <label for="">
+                            <i class="fa fa-cube"></i> Items:
+                        </label>
+                        <button class="primary">Nuevo</button>
+                    </div>
+    
+                    <div class="result">
+                        <span>
+                            <i class="fa-brands fa-product-hunt"></i>
+                            <input type="text" placeholder="---- ---- --">
+                        </span>
+                    </div>
+                </section>
+            </form>
+        </div>
+        <div class="data">
+            <table>
+                <caption>
+                    <span> <i class="fa fa-bag-shopping"></i> Productos</span>
+                </caption>
+                <thead>
+                    <tr>
+                        <th>Cant.</th><th>Cod.</th><th>Descripcion</th><th>P. Uni.</th><th>P. Tot.</th>
+                        <td><!-- opciones --></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of products; track $index) {
+                    <tr>
+                        <td><span class="right">{{item.cantidad}}</span></td>
+                        <td><span>1</span></td>
+                        <td><span>{{item.nombre}}</span></td>
+                        <td><span class="right">{{item.precio | number:'1.2-2'}}</span></td>
+                        <td><span class="right">{{item.total | number:'1.2-2'}}</span></td>
+                        <td>
+                            <button (click)="editItem(item)" ><i class="fa fa-edit"></i></button>
+                            <button (click)="deleteItem(item.id)" ><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    }
+                    <!-- button add -->
+                    <tr>
+                        <td colspan="all" class="addItem" (click)="openDialog()">Añadir item</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <span>Ope. gravada</span>
+                        <td>{{operationGrav | number:'1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <span>IGV</span>
+                        <td>{{ igvAmount | number:'1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <span><b>Importe Total</b></span>
+                        <td>{{totalAmount | number:'1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <button class="primary">Emitir Boleta</button>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </section>
+</div>
+
+<dialog closedby="any" #dialog>
+    <form  method="dialog">
+        <button><i class="fa fa-x"></i></button>
+    </form>
+    <article>
+        <form (keydown.enter)="addItem()">
+        <section class="header">
+            <div>
+                <span>
+                    <i class="fa fa-box"></i>
+                    <input type="text" placeholder="Producto" [formControl]="p_name" (input)="firstLetter($event)" #name_product>
+                </span>
+            </div>
+            <div>
+                <span>
+                    <input type="text" name="" id="" placeholder="Código" tabindex="-1">
+                </span>
+            </div>
+        </section>
+        <section class="body">
+            <div>
+                <label for="price">
+                    Precio
+                    <span>
+                        S/.
+                        <input type="text" class="price" placeholder="00.00" [formControl]="p_price" (keypress)="numberPress($event)">
+                    </span>
+                </label>
+                <div class="amount">
+                    Cantidad
+                    <span><button tabindex="-1" type="button" (click)="subtractAmount()">-</button></span>
+                    <span>
+                        <input placeholder="Cantidad" [formControl]="p_amount" (keypress)="numberPress($event)" id="amount">
+                    </span>
+                    <span><button tabindex="-1" type="button" (click)="addAmount()">+</button></span>
+                </div>
+            </div>
+        </section>
+        <!-- <section class="more">
+            <div>
+                <label for="variants">
+                    Variantes
+                    <input type="checkbox" name="variante" id="variants">
+                </label>
+            </div>
+            <section class="body_more">
+                <div class="items">
+                    @for (item of [].constructor(2); track $index) {
+                        <section class="item">
+                            <span>
+                                <input type="text" placeholder="----">
+                            </span>
+                            <span>
+                                S/.
+                                <input type="text" class="price" placeholder="00.00">
+                            </span>
+                            <span>
+                                <input type="text" placeholder="Descripcion...">
+                            </span>
+                        </section>
+                    }
+                </div>
+                <button><i class="fa fa-plus"></i></button>
+            </section>
+        </section> -->
+        <section class="buttton">
+            <button class="primary" type="button" [class.temblor]="activarTemblor" (click)="addItem()" [disabled]="!newItem.valid || !newItem.dirty">
+                Añadir producto
+            </button>
+        </section>
+        </form>
+    </article>
+</dialog>

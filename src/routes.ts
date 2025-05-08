@@ -25,12 +25,19 @@ const routes: Routes = [
             (m) => m.HomeComponent
           ),
       },
+      // {
+      //   path: 'config',
+      //   loadComponent: () =>
+      //     import('./app/pages/config/general/general.component').then(
+      //       (m) => m.GeneralComponent
+      //     ),
+      // },
       {
-        path: 'config',
-        loadComponent: () =>
-          import('./app/pages/config/general/general.component').then(
-            (m) => m.GeneralComponent
-          ),
+        path: 'tickets',
+        children: [
+          { path: "", loadComponent: () => import('./app/pages/ticket/ticket.component').then( (m) => m.TicketComponent ) },
+          { path: "new", loadComponent: () => import('./app/pages/ticket/new/new.component').then( (m) => m.NewComponent ) }
+        ]
       },
     ],
   },

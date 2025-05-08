@@ -21,6 +21,7 @@ export class SidebarComponent {
   public routes = [
     ['', 'not', 'Inicio'],
     // ['config', 'not', 'Configuración'],
+    ['/tickets','not','Boletas']
   ];
 
   public sidebarToggle() {

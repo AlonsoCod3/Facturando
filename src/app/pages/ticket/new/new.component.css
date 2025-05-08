@@ -1,0 +1,400 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+header {
+    display: flex;
+    /* justify-content: space-around; */
+    gap: 30px;
+    div{
+        flex: 1;
+        text-align: center;
+    }
+}
+
+button.primary {
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: none;
+    background-color: grey;
+    font-size: 1rem;
+    color: whitesmoke;
+    float: right;
+    outline: none;
+    &:hover {
+        &:not(:disabled){
+            background-color: black;
+        }
+    }
+    &:disabled{
+        background-color: red;
+    }
+    &:focus {
+        outline: 3px solid #95acbf;
+    }
+}
+.content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: 100%;
+    overflow: hidden;
+    margin-left: -1.7rem;
+    > div {
+        border: 1px solid #95acbf;
+        align-content: center;
+        background-color:#e9eae4;
+    }
+    button {
+        &:not(:disabled){
+            cursor: pointer;
+        }
+    }
+    .laderBar {
+        border-left: none;
+        border-radius: 0px 5px 5px 0px;
+        padding: 20px;
+        gap:20px;
+        display: flex;
+        flex-direction: column;
+        .date {
+            text-align: end;
+        }
+        form {
+            display: grid;
+            gap: 20px;
+            span {
+                display: inline-flex;
+                padding: 4px 11px;
+                border: 1px solid grey;
+                border-radius: 2px;
+                background-color: white;
+                color: gray;
+                transition: all .3s;
+                i {
+                    align-content: center;
+                }
+                input {
+                    outline: none;
+                    border: none;
+                    height: 27px;
+                    width: 100%;
+                    text-indent:  10px;
+                    border: none;
+                    position: relative;
+                    background: none;
+                }
+                &:has(input:focus){
+                    border: 1px solid red;
+                }
+            }
+            section:first-child .result > div{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                span {
+                    position: relative;
+                    width: 85%;
+                }
+                button {
+                    height: 30px;
+                    padding: 7px 9px;
+                    border: none;
+                    color: white;
+                    border-radius: 50%;
+                    background-color: #f9da14;
+                }
+            }
+            section > div:first-child {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 15px;
+            }
+            .result {
+                display: grid;
+                gap: 10px;
+            }
+            .checks {
+                display: flex;
+                justify-content: space-around;
+            }
+        }
+    }
+    .data {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        border-radius: 5px;
+        padding: 20px;
+        table {
+            display: grid;
+            gap: 10px;
+            color: grey;
+            height: 100%;
+            border-spacing: 5px 10px;
+            grid-template-rows: min-content min-content 1fr min-content;
+            caption {
+                background-color: #fff;
+                height: 27px;
+                align-content: center;
+            }
+            thead {
+                background-color: #fff;
+                tr {
+                    display: grid;
+                    grid-template-columns: repeat(2, 70px) 1fr repeat(3, 70px);
+                    gap: 10px;
+                    align-content: center;
+                }
+                th, td{
+                    padding: 5px 10px;
+                }
+            }
+            tbody {
+                overflow-y: auto;
+                display: grid;
+                row-gap: 10px;
+                grid-auto-rows: min-content;
+                tr {
+                    display: grid;
+                    grid-template-columns: repeat(2, 70px) 1fr repeat(3, 70px);
+                    gap: 10px;
+                    &:last-child {
+                        grid-template-columns: 1fr ;
+                        text-align: center;
+                        border: 1px dashed grey;
+                    }
+                    &:has(td.addItem:hover) {
+                        border-color: black;
+                        color: black;
+                        background-color: lightgray;
+                        cursor: pointer;
+                    }
+                }
+                td {
+                    &:not(:last-child){
+                        background-color: #fff;
+                    }
+                    &:nth-child(3) {
+                        flex: 3
+                    }
+                    &:last-child:not(.addItem) {
+                        display: flex;
+                        justify-content: space-between;
+                        button{
+                            background-color: #fff;
+                            padding: 5px 10px;
+                            border: none;
+                            border-radius: 3px;
+                        }
+                    }
+                    span{
+                        width: 100%;
+                        height: 100%;
+                        border: none;
+                        display: block;
+                        align-content: center;
+                        padding-inline: 10px;
+                        &.right{
+                            text-align: end;
+                        }
+                    }
+                }
+            }
+            tfoot {
+                display: grid;
+                row-gap: 10px;
+                tr {
+                    display: grid;
+                    grid-template-columns: 1fr 70px;
+                    text-align: end;
+                    column-gap: 10px;
+                    &:last-child {
+                        grid-template-columns: 1fr;
+                    }
+                    span {
+                        width: 100%;
+                    }
+                    td {
+                        background-color: #fff;
+                        height: 100%;
+                        border: none;
+                        padding-inline: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+dialog {
+    top: 50%;
+    left: 50%;
+    border: none;
+    background-color: #E9EAE4;
+    width: 450px;
+    padding: 50px 20px 21px;
+    border-radius: 10px;
+    position: relative;
+    transform: translate(-50%, -50%);
+    >form {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        button {
+            border-radius: 50%;
+            border: 2px solid;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+        }
+    }
+    button:not(:disabled), input[type=checkbox] {
+        cursor: pointer;
+    }
+    span {
+        display: inline-flex;
+        padding: 4px 11px;
+        border-radius: 100px;
+        background-color: white;
+        color: gray;
+        /* transition: all .3s; */
+        i {
+            align-content: center;
+        }
+        .price {
+            text-align: right;
+        }
+        input {
+            outline: none;
+            border: none;
+            height: 25px;
+            width: 100%;
+            text-indent:  10px;
+            border: none;
+            position: relative;
+            background: none;
+        }
+        /*validationes*/
+        &:has(input.ng-invalid:not(form).ng-touched) {
+            color: red;
+        }
+        &:has(input.ng-invalid:not(form).ng-touched::placeholder) {
+            color: red;
+        }
+        &:has(input.ng-valid:not(form).ng-touched) {
+            border: 1px solid #005ea6;
+        }
+        &:has(input.ng-invalid:not(form).ng-touched) {
+            border: 1px solid red;
+        }
+    }
+    article {
+        form {
+            padding-block: 10px;
+            display: grid;
+            gap: 20px;
+        }
+        .header {
+            display: inline-flex;
+            justify-content: space-between;
+            width: 100%;
+            div:last-child{
+                width: 90px;
+                input{
+                    width: 100%;
+                }
+            }
+        }
+        .body {
+            div {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+            label {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+            }
+            span {
+                flex: 1;
+            }
+            .amount {
+                display: flex;
+                gap: 20px;
+                flex-direction: row;
+                align-items: center;
+                input {
+                    text-align: right;
+                }
+                span {
+                    button {
+                        border: none;
+                        background: none;
+                        outline: none;
+                        height: 25px;
+                        width: 100%;
+                    }
+                    &:has(button){
+                        flex: .1;
+                        justify-content: center;
+                    }
+                    &:has(button:focus) {
+                        outline: 3px solid #95acbf;
+                    }
+                }
+            }
+        }
+        .more {
+            padding-block: 10px;
+            label {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                padding-block: 10px;
+            }
+            .items {
+                display: grid;
+                gap: 10px;
+                margin-bottom: 10px;
+                .item{
+                    display: grid;
+                    grid-template-columns: 70px repeat(2, 1fr);
+                    gap: 15px;
+                }
+            }
+            .body_more {
+                display: grid;
+                gap: 10px;
+                grid-template-columns: 1fr;
+                padding-block: 10px;
+                button {
+                    height: 25px;
+                    background: none;
+                    border: 1px solid black;
+                    border-radius: 5px;
+                    &:hover {
+                        background-color: red;
+                    }
+                }
+            }
+        }
+    }
+}
+dialog::backdrop {
+    background-color: black;
+    opacity: .5;
+}
+.temblor {
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
