@@ -2,32 +2,28 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ClientService } from '../../../core/services/client.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DecimalPipe, JsonPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-new',
-  imports: [RouterLink, ReactiveFormsModule, DecimalPipe, JsonPipe],
+  imports: [RouterLink, ReactiveFormsModule, DecimalPipe],
   templateUrl: './new.component.html',
   styleUrl: './new.component.css'
 })
 export class NewComponent {
   @ViewChild("dialog") dialog!:ElementRef
+  @ViewChild("name_product") name_product!:ElementRef
+
   @ViewChild("client_name") name!:ElementRef
   @ViewChild("client_address") address!:ElementRef
 
   client = {}
   variantes:any = {}
-  products = [
-    {
-      id: 0,
-      nombre: "Ceviche",
-      precio: "22",
-      cantidad: 1,
-      total: 22
-    }
-  ]
+  products:any
   igv = new FormControl(10/100)
 
+  operationGrav:number = 0
+  igvAmount:number = 0
   totalAmount:number = 0
 
   newItem!:FormGroup
@@ -43,27 +39,28 @@ export class NewComponent {
     private clientService:ClientService
   ){
     this.createFormGroup()
-    this.sumTotals()
   }
 
-  sumTotals() {
-    this.totalAmount = this.products.map(x => x.total).reduce((acc, current) => acc + current, 0)
+  private sumTotals() {
+    this.totalAmount = this.products.map((x:any) => x.total).reduce((acc:any, current:any) => acc + current, 0)
+    this.operationGrav = this.totalAmount / (1 + this.igv.value!)
+    this.igvAmount = ( this.totalAmount / (1 + this.igv.value!)) * this.igv.value!
   }
 
-  firstLetter(event:any){
+  public firstLetter(event:any){
     let inputValue = event.target.value;
     event.target.value =  inputValue.charAt(0).toUpperCase() + inputValue.slice(1)
   }
-  numberPress(e:any){
+  public numberPress(e:any){
     return /[0-9]/i.test(e.key)
   }
 
-  subtractAmount(){
+  public subtractAmount(){
     if(Number(this.p_amount.value) != 0){
       this.p_amount.setValue(Number(this.p_amount.value) - 1);
     }  
   }
-  addAmount(){
+  public addAmount(){
     this.p_amount.setValue(Number(this.p_amount.value) + 1);
   }
 
@@ -76,8 +73,13 @@ export class NewComponent {
       total: this.p_total,
     })
   }
+  public openDialog(){
+    this.newItem.reset()
+    this.dialog.nativeElement.showModal()
+    this.name_product.nativeElement.focus()
+  }
 
-  addItem(){
+  public addItem(){
     if(this.newItem.invalid){
       this.activarTemblor = true;
       this.newItem.markAllAsTouched();
@@ -91,7 +93,17 @@ export class NewComponent {
         this.products[this.p_id.value].precio = this.p_price.value,
         this.products[this.p_id.value].cantidad = this.p_amount.value,
         this.products[this.p_id.value].total = this.p_price.value * this.p_amount.value
-      }else{
+      }else if(this.products == undefined){
+        let product = {
+          id: 0,
+          nombre:this.p_name.value,
+          precio:this.p_price.value,
+          cantidad:this.p_amount.value,
+          total: this.p_price.value * this.p_amount.value
+        }
+        this.products = [product]
+      }
+      else{
         let product = {
           id: this.products.length,
           nombre:this.p_name.value,
@@ -105,7 +117,7 @@ export class NewComponent {
       this.dialog.nativeElement.close()
     }
   }
-  editItem(item:any){
+  public editItem(item:any){
     this.p_id.setValue(item.id)
     this.p_name.setValue(item.nombre)
     this.p_price.setValue(item.precio)
@@ -114,25 +126,26 @@ export class NewComponent {
     this.newItem.markAllAsTouched()
     this.newItem.markAsDirty()
     this.dialog.nativeElement.showModal()
+    this.name_product.nativeElement.focus()
   }
-  deleteItem(id:number){
-    const indexDelete = this.products.findIndex((x)=> x.id === id)
+  public deleteItem(id:number){
+    const indexDelete = this.products.findIndex((x:any)=> x.id === id)
     if (indexDelete !== -1) {
       // eliminar objeto
       this.products.splice(indexDelete, 1);
       // actualizar ids
-      this.products.forEach((item, index) => {
+      this.products.forEach((item:any, index:any) => {
         item.id = index
       });
       this.sumTotals()
     }
   }
 
-  addFavorite() {
+  public addFavorite() {
     console.log("añadido")
   }
 
-  onInputDocument(event:any){
+  public onInputDocument(event:any){
     if ( event.length === 8 ) {
       this.searchData(event)
     }
@@ -141,7 +154,7 @@ export class NewComponent {
     }
   }
 
-  searchData(value:string) {
+  private searchData(value:string) {
     this.clientService.getDni(value)
     .subscribe(
       (x)=> {

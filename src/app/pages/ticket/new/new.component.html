@@ -15,7 +15,7 @@
                 <section>
                     <div>
                         <label for="">
-                            <i>X</i> Datos:
+                            <i class="fa fa-user"></i> Datos:
                         </label>
                     </div>
                     <div class="result">
@@ -40,7 +40,7 @@
                 <section>
                     <div>
                         <p>
-                            <i>X</i> IGV:
+                            <i class="fa fa-percent"></i> IGV:
                         </p>
                     </div>
     
@@ -59,7 +59,7 @@
                 <section>
                     <div>
                         <label for="">
-                            <i>X</i> Items:
+                            <i class="fa fa-cube"></i> Items:
                         </label>
                         <button class="primary">Nuevo</button>
                     </div>
@@ -80,12 +80,8 @@
                 </caption>
                 <thead>
                     <tr>
-                        <th>Cant.</th>
-                        <th>Cod.</th>
-                        <th>Descripcion</th>
-                        <th>P. Uni.</th>
-                        <th>P. Tot.</th>
-                        <td></td>
+                        <th>Cant.</th><th>Cod.</th><th>Descripcion</th><th>P. Uni.</th><th>P. Tot.</th>
+                        <td><!-- opciones --></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -104,17 +100,17 @@
                     }
                     <!-- button add -->
                     <tr>
-                        <td colspan="all" class="addItem" (click)="newItem.reset();dialog.showModal()">Añadir item</td>
+                        <td colspan="all" class="addItem" (click)="openDialog()">Añadir item</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <span>Ope. gravada</span>
-                        <td>{{totalAmount / (1 + igv.value!) | number:'1.2-2'}}</td>
+                        <td>{{operationGrav | number:'1.2-2'}}</td>
                     </tr>
                     <tr>
                         <span>IGV</span>
-                        <td>{{(totalAmount / (1 + igv.value!)) * igv.value! | number:'1.2-2'}}</td>
+                        <td>{{ igvAmount | number:'1.2-2'}}</td>
                     </tr>
                     <tr>
                         <span><b>Importe Total</b></span>
@@ -139,7 +135,7 @@
             <div>
                 <span>
                     <i class="fa fa-box"></i>
-                    <input type="text" placeholder="Producto" [formControl]="p_name" (input)="firstLetter($event)">
+                    <input type="text" placeholder="Producto" [formControl]="p_name" (input)="firstLetter($event)" #name_product>
                 </span>
             </div>
             <div>
