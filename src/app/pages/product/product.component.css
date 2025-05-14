@@ -1,0 +1,45 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+header {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    div{
+        flex: 1;
+        align-content: center;
+        input {
+            width: 100%;
+        }
+    }
+}
+.content {
+    background-color: var(--neutral-1-color);
+    padding: 20px;
+    flex: 1;
+    border-radius: 10px;
+    display: flex;
+    gap:20px;
+    flex-direction: column;
+    header{
+        justify-content: space-between;
+        div {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        button{
+            padding: 5px 10px;
+            height: 27px;
+        }
+    }
+    table {
+        width: 100%;
+        tr th{
+            text-align: left;
+        }
+    }
+}
