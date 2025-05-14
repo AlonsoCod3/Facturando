@@ -1,8 +1,8 @@
 <div>
     <h1>{{ titlePage }}</h1>
 </div>
-<app-base-pages [color]="pickColor" [title]="title" [anyOption]="false" [searchbar]="false">
-    <div section="otherData">
+<app-base-pages [background]="pickColor" [title]="title" [anyOption]="false" [searchbar]="false">
+    <section id="otherData">
         <div class="title_section">
             <h3>Activar opciones</h3>
         </div>
@@ -10,8 +10,8 @@
             <label for="{{i.id}}">{{i.label}}</label>
             <input id="{{i.id}}" type="checkbox">
         </div>
-    </div>
-    <div section="otherData">
+    </section>
+    <section id="otherData">
         <div class="title_section">
             <h3>Cambiar colores</h3>
         </div>
@@ -24,8 +24,8 @@
                 </div>
             </ng-container>
         </div>
-    </div>
-    <div section="otherData">
+    </section>
+    <section id="otherData">
         <div class="title_section">
             <h3>Crear tabla de datos</h3>
         </div>
@@ -68,8 +68,8 @@
                 <button>Generar Tabla</button>
             </div>
         </form>
-    </div>
-    <div section="otherData">
+    </section>
+    <section id="otherData">
         <div class="title_section">
             <h3>Previsualizacion de datos</h3>
         </div>
@@ -100,5 +100,5 @@
             </table>
         </section>
 
-    </div>
+    </section>
 </app-base-pages>

@@ -21,7 +21,10 @@ export class SidebarComponent {
   public routes = [
     ['', 'not', 'Inicio'],
     // ['config', 'not', 'Configuración'],
-    ['/tickets','not','Boletas']
+    ['/tickets','not','Boletas',[
+      ['new','not','Nuevo']
+    ]],
+    ['products', 'not', 'Productos']
   ];
 
   public sidebarToggle() {

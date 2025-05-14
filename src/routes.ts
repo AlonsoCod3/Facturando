@@ -39,6 +39,12 @@ const routes: Routes = [
           { path: "new", loadComponent: () => import('./app/pages/ticket/new/new.component').then( (m) => m.NewComponent ) }
         ]
       },
+      {
+        path: 'products',
+        children: [
+          { path: "", loadComponent: () => import('./app/pages/product/product.component').then( (m) => m.ProductComponent ) },
+        ]
+      },
     ],
   },
   {

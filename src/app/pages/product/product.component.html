@@ -1,0 +1,66 @@
+<div class="main-container">
+    <header>
+        <h1>
+            Productos
+        </h1>
+        <div id="searchBar">
+            <input type="text" placeholder="Buscar Boletas">
+        </div>
+    </header>
+    <section class="content">
+        <header>
+            <!-- <div> -->
+                <button>Añadir Producto</button>
+            <!-- </div> -->
+            <div>
+                <button>Seleccione</button>
+                <button>Opciones</button>
+            </div>
+            <!-- <div> -->
+                <button>Ordenar por</button>
+            <!-- </div> -->
+        </header>
+        <article>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Variantes</th>
+                        <th>Código</th>
+                        <th>Estado</th>
+                        <th>Precio</th>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if( !products.length ){
+                        <tr>
+                            <td>Nombre</td>
+                            <td>Variantes</td>
+                            <td>Codigo</td>
+                            <td>Estado</td>
+                            <td>Precio</td>
+                            <td>X X</td>
+                        </tr>
+                    }
+                    @else {
+                        @for (item of products; track $index) {
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="item_{{$index}}">
+                                {{ item.name }}
+                            </td>
+                            <td>+ {{ item.variants.length }}</td>
+                            <td>{{ item.code }}</td>
+                            <td> Activo </td>
+                            <td>{{ item.price| number:'1.2-2' }}</td>
+                            <td>X X</td>
+                        </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </article>
+    </section>
+</div>
