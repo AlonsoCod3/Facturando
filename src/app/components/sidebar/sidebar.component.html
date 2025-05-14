@@ -23,7 +23,7 @@
           class="item"
           routerLink="{{ menu[0] }}"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLinkActiveOptions]="{ exact: !menu[3] }"
         >
           <div class="postion-relative">
             <i class="menu-icon" [class]="menu[1]"></i>
