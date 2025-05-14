@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    height: 100%;
+    height: calc(100vh - (50px + 40px + 1.5rem)); /* header + footer + padding-top-page */
 }
 header {
     display: flex;
