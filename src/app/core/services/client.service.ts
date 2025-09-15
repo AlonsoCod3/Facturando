@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class ClientService {
-  private path = fetch(environment.apiUrl);
+  private path = environment.apiUrl;
 
   private http = inject(HttpClient)
   private cacheService = inject(CachingService)
