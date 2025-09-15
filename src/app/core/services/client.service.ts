@@ -7,7 +7,7 @@ import { CachingService } from './caching.service';
   providedIn: 'root'
 })
 export class ClientService {
-  private path = import.meta.NG_APP_URL;
+  private path = import.meta.env.NG_APP_URL;
 
   private http = inject(HttpClient)
   private cacheService = inject(CachingService)
