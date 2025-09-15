@@ -27,4 +27,18 @@ export class ProductService {
       )
     }
   }
+  public newProduct(body:any):Observable<any> {
+    const url = `${this.path}/productos/`
+    // const cachedResponse = this.cacheService.get(url);
+    // if (cachedResponse){
+    //   return cachedResponse
+    // }else {
+      return this.http.post(url, body)
+      .pipe(
+        // tap(response => this.cacheService.set(url,response)),
+        map(response => response),
+        catchError(requestError=>throwError(requestError))
+      )
+    // }
+  }
 }
