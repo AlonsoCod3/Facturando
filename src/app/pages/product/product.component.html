@@ -4,27 +4,47 @@
             Productos
         </h1>
         <div id="searchBar">
-            <input type="text" placeholder="Buscar Boletas">
+            <i class="fa fa-search"></i>
+            <input type="text" placeholder="Buscar Producto">
         </div>
     </header>
     <section class="content">
         <header>
             <!-- <div> -->
-                <button>Añadir Producto</button>
+                <button class="dark" routerLink="new">
+                    <i class="fa fa-plus"></i>
+                    Añadir Producto
+                </button>
             <!-- </div> -->
             <div>
-                <button>Seleccione</button>
-                <button>Opciones</button>
+                <button (click)="seleccionar = !seleccionar">
+                    @if(!seleccionar){
+                        <i class="fa fa-check"></i> Seleccionar
+                    }
+                    @else {
+                        Deseleccionar
+                    }
+                </button>
+                <button [class.show] = seleccionar>Opciones</button>
             </div>
             <!-- <div> -->
-                <button>Ordenar por</button>
+                <button>
+                    <i class="fa fa-filter"></i>
+                    Ordenar por
+                    <i class="fa fa-chevron-down"></i>
+                </button>
             <!-- </div> -->
         </header>
         <article>
             <table>
                 <thead>
                     <tr>
-                        <th>Nombre</th>
+                        <th>
+                            @if(seleccionar){
+                                <input type="checkbox" id="item_all">
+                            }
+                            Nombre
+                        </th>
                         <th>Variantes</th>
                         <th>Código</th>
                         <th>Estado</th>
@@ -33,31 +53,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if( !products.length ){
-                        <tr>
-                            <td>Nombre</td>
-                            <td>Variantes</td>
-                            <td>Codigo</td>
-                            <td>Estado</td>
-                            <td>Precio</td>
-                            <td>X X</td>
+                    @if( loader ){
+                        <tr style="background:none">
+                            @for (item of [].constructor(6); track $index) {                                
+                                <td><ngx-skeleton-loader count="10" /></td>
+                            }
                         </tr>
+                        }
+                    @else if(!loader && errorLoader){
+                        @if (messageError){
+                            <tr style="background:none" class="error">
+                                <td colspan="6" class="center" style="background:none">No se encontr&oacute; informaci&oacute;n para mostrar</td>
+                            </tr>
+                        }
+                        @else {
+                        <tr style="background:none" class="error">
+                            <td colspan="6" class="center" style="background:none">Ocurri&oacute; un error al obtener la informaci&oacute;n</td>
+                        </tr>
+                        }
                     }
                     @else {
                         @for (item of products; track $index) {
                         <tr>
                             <td>
-                                <input type="checkbox" id="item_{{$index}}">
+                                @if(seleccionar){
+                                    <input type="checkbox" id="item_{{$index}}">
+                                }
                                 {{ item.name }}
                             </td>
                             <td>+ {{ item.variants.length }}</td>
                             <td>{{ item.code }}</td>
                             <td> Activo </td>
                             <td>{{ item.price| number:'1.2-2' }}</td>
-                            <td>X X</td>
+                            <td style="flex-direction:end">
+                                <button><i class="fa fa-edit"></i></button>
+                                <button><i class="fa fa-eye"></i></button>
+                            </td>
                         </tr>
                         }
-
                     }
                 </tbody>
             </table>

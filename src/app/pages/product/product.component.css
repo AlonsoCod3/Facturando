@@ -7,14 +7,46 @@
 header {
     display: flex;
     justify-content: space-around;
-    gap: 30px;
+    align-items:center;
+    gap: 50px;
     div{
         flex: 1;
         align-content: center;
         input {
             width: 100%;
         }
+    button:last-child {
+        width: 0px;
+        display:none;
+        transition: width .3s ease;
+        padding:0;
+        &.show{
+            width: 100px;
+            /* display:block; */
+        }
     }
+
+    }
+}
+button {
+    cursor: pointer;
+}
+
+#searchBar {
+    border:1px solid black;
+    border-radius: 20px;
+    padding: 10px ;
+    display:grid;
+    grid-template-columns: auto 1fr;
+    gap:5px;
+    input {
+        border:none;
+        outline:none
+    }
+}
+.dark {
+    color: white;
+    background-color: black
 }
 .content {
     background-color: var(--neutral-1-color);
@@ -32,14 +64,44 @@ header {
             justify-content: center;
         }
         button{
-            padding: 5px 10px;
-            height: 27px;
+            border-radius: 20px;
+            border: 1px solid;
+            padding: 8px 16px;
+            align-content: center;
         }
     }
     table {
         width: 100%;
+        border-collapse: collapse;
         tr th{
             text-align: left;
+        }
+        th, td {
+            /* border: 1px solid black; */
+            padding: 5px 10px
+        }
+        thead tr{
+            border-bottom: 2px solid black;
+        }
+        tbody tr:nth-child(odd){
+            background-color: orange;
+        }
+        tbody tr {
+            border-top: 1px solid black;
+        }
+        tbody td.center {
+            text-align: center;
+        }
+        tbody tr:not(.error) td:last-child {
+            display:flex;
+            justify-content: end;
+            gap: 8px;
+            button{
+                border-radius: 20px;
+                border: none;
+                padding: 5px 10px;
+                align-content: center;
+            }
         }
     }
 }
