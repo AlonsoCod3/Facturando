@@ -2,13 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { CachingService } from './caching.service';
-import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
-  private path = environment.apiUrl;
+  private path = import.meta.NG_APP_URL;
 
   private http = inject(HttpClient)
   private cacheService = inject(CachingService)
