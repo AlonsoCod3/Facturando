@@ -19,12 +19,15 @@ export class SidebarComponent {
   //  url - icon - nombre - submenu
 
   public routes = [
-    ['', 'not', 'Inicio'],
+    ['', 'fa fa-home', 'Dashboard'],
     // ['config', 'not', 'Configuración'],
-    ['/tickets','not','Boletas',[
-      ['new','not','Nuevo']
+    ['/tickets','fa fa-receipt','Boletas',[
+      ['new','fa fa-plus','Nueva boleta']
     ]],
-    ['products', 'not', 'Productos']
+    ['products', 'fa fa-tags', 'Productos',[
+      ['new','fa fa-plus','Crear Producto'],
+      ['detail','fa fa-eye','Detalle de Producto'],
+    ]]
   ];
 
   public sidebarToggle() {
