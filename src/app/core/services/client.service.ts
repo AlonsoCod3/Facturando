@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { CachingService } from './caching.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
-  private path = "https://api-rest-m9gm.onrender.com"
+  private path = fetch(environment.apiUrl);
 
   private http = inject(HttpClient)
   private cacheService = inject(CachingService)
