@@ -1,0 +1,152 @@
+<main>
+    <header>
+        <button routerLink=".."><</button>
+        <!-- [routerLink]="['new']" -->
+        <div id="searchBar">
+            <span>Nuevo Producto</span>
+        </div>
+    </header>
+
+    <section>
+        <div id="dialog">
+            <article>
+                <form [formGroup]="productForm">
+                <section class="header">
+                    <div>
+                        <span>
+                            <i class="fa fa-box"></i>
+                            <input type="text" placeholder="Nombre" #name_product formControlName="name">
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            <input type="text" name="" id="" placeholder="Código" tabindex="-1" formControlName="code">
+                        </span>
+                    </div>
+                </section>
+                <section class="body">
+                    <div>
+                        <label for="price">
+                            Precio
+                        </label>
+                        <span>
+                            S/.
+                            <input type="text" class="price" id="price" placeholder="00.00" formControlName="price">
+                        </span>
+                        <div>
+                            <span>
+                                <input type="text" placeholder="Categoria" formControlName="category">
+                            </span>
+                        </div>
+                        <!-- Por si se añade un inventario -->
+                        <!-- <div class="amount">
+                            Cantidad
+                            <div>
+                                <span><button tabindex="-1" type="button" >-</button></span>
+                                <span>
+                                    <input placeholder="Cantidad" id="amount" formControlName="amount">
+                                </span>
+                                <span><button tabindex="-1" type="button">+</button></span>
+                            </div>
+                        </div> -->
+                    </div>
+                </section>
+                <section class="more">
+                    <div>
+                        <label for="variants">
+                            Variantes
+                            <input type="checkbox" name="variante" id="enble_variant" (change)="enableVariant()" [checked]="enableVariants">
+                        </label>
+                    </div>
+                </section>
+                <section class="buttton">
+                    <button class="primary" type="button" (click)="createProduct()" [disabled]="productForm.invalid || !productForm.dirty">
+                        Crear producto
+                    </button>
+                </section>
+                </form>
+            </article>
+        </div>
+        
+        <div id="variants">
+            <section class="more" [class.disabled]="!enableVariants" >
+                <div class="items">
+                    <section class="item">
+                        <b>Codigo</b>
+                        <b>Nombre</b>
+                        <b>Precio</b>
+                    </section>
+                </div>
+                <form [formGroup]="productForm">
+                    <div class="items" formArrayName="variants">
+                        @for (item of variants.controls ; track item.value.code) {
+                        <section class="item" [formGroupName]="$index">
+                            <!-- <section *ngFor="let item of variants.controls; let i = index" class="item" [formGroupName]="i"> -->
+                                <span>
+                                    <input type="text" placeholder="- - -" formControlName="code">
+                                </span>
+                                <span>
+                                    <input type="text" placeholder="Variante" formControlName="name">
+                                </span>
+                                <span>
+                                    S/.
+                                    <input type="text" class="price" placeholder="00.00" formControlName="price">
+                                </span>
+                                <span>
+                                    <button (click)="removeVariant($index)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </span>
+                            </section>
+                        }
+                        <button (click)="addVariant()"><i class="fa fa-plus"></i></button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </section>
+</main>
+
+<dialog closedby="none" #create>
+    @if(loader){
+        <div>
+            <span class="loader"></span>
+        </div>
+    }
+
+    @else {
+        <form  method="dialog" class="cross">
+            <button><i class="fa fa-x"></i></button>
+        </form>
+        @if(responseCreated){
+            <p>
+                Producto creado correctamente
+            </p>
+            <div class="footer">
+                <form method="dialog">
+                    <button class="outline">
+                        Seguir Creando
+                    </button>
+                </form>
+                <button class="primary">
+                    Ir a Listado
+                </button>
+            </div>
+        }
+        @else {
+            <p>
+                Ocurrio un error al crear el Producto.
+            </p>
+            <span class="caption">
+                Intentelo de nuevo más tarde o informa al operador.
+            </span>
+            <div class="footer">
+                <form method="dialog">
+                    <button class="primary">
+                        Cerrar
+                    </button>
+                </form>
+            </div>
+        }
+    } 
+</dialog>
