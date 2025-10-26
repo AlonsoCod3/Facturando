@@ -7,7 +7,7 @@ import { CachingService } from './caching.service';
   providedIn: 'root'
 })
 export class ClientService {
-  private path = "https://api-rest-m9gm.onrender.com"
+  private path = import.meta.env.NG_APP_URL
 
   private http = inject(HttpClient)
   private cacheService = inject(CachingService)
