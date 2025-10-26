@@ -8,7 +8,7 @@
     "facturando": {
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@ngx-env/builder:application",
           "configurations": {
             "development": {
               "extractLicenses": false,
@@ -30,14 +30,18 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "outputPath": "dist/facturando",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "scripts": [],
-            "styles": ["src/global_styles.css"],
+            "styles": [
+              "src/global_styles.css"
+            ],
             "tsConfig": "tsconfig.app.json"
           }
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@ngx-env/builder:dev-server",
           "configurations": {
             "development": {
               "buildTarget": "facturando:build:development"
@@ -46,7 +50,8 @@
               "buildTarget": "facturando:build:production"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {}
         }
       },
       "prefix": "app",
