@@ -28,14 +28,28 @@
       </div>
       <div class="section-card dark" id="daily" data-pad="20">
         <section class="header-section">
-          <div><button>*</button></div>
-          <div class="date"><p>19/04/2025</p></div>
-          <div><button>+</button></div>
+          <!--  -->
+          <div><button class="fa fa-plus" (click)="pressAdd()" #plus></button></div>
+          <!--  --><div class="date"><p>
+          @if (contentItemSelect > 0) {
+            {{contentItemSelect}} productos seleccionados
+          }
+          @else {
+            19/04/2025
+          }
+        </p></div>
+          <!--  -->
+          <div><button class="fa fa-trash" (click)="deleteSelectables()" #trash></button></div>
+          <!--  -->
         </section>
         <section class="content-section c-height">
           <div class="movimientos">
-            @for (item of [].constructor(15); track $index) {
-              <app-card [typo]="'daily'"/>
+            @for (item of items; track $index) {
+              <!-- [].constructor(10) -->
+              <app-card (arrayClickable)="selectItems($event)" (arrayUnclickable)="unSelectItem($event)" [typo]="'daily'" [typo-data]="item"/>
+            }
+            @empty{
+              <p>No Hay Registros</p>
             }
           </div>
         </section>
@@ -44,3 +58,40 @@
     </section>
   </main>
 </section>
+
+<dialog closedby="any" #dialog>
+  <form method="dialog">
+      <button><i class="fa fa-x"></i></button>
+  </form>
+  <article>
+      <form (keydown.enter)="$event.preventDefault();addItem()">
+      <section class="header">
+          <div>
+            <label for="name_product">
+              Nombre
+              <span>
+                  <i class="fa fa-box"></i>
+                  <input id="name_product" type="text" placeholder="Producto"  #name_product [formControl]="nameP">
+              </span>
+            </label>
+          </div>
+      </section>
+      <section class="body">
+          <div>
+              <label for="price">
+                  Precio
+                  <span>
+                      S/.
+                      <input type="text" id="price" class="price" placeholder="00.00" [formControl]="priceP" (keypress)="numberPress($event)">
+                  </span>
+              </label>
+          </div>
+      </section>
+      <section class="buttton">
+          <button class="primary" type="button" [class.temblor]="activarTemblor" (click)="addItem()" [disabled]="!newItem.valid || !newItem.dirty">
+              Añadir producto
+          </button>
+      </section>
+      </form>
+  </article>
+</dialog>

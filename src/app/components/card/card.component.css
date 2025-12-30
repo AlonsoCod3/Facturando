@@ -33,12 +33,12 @@
 }
 .daily {
     padding: 20px;
-    background-color: white;
     color: black;
     border-radius: 10px;
     position: relative;
     height: 100px;
     text-align: center;
+    cursor:pointer;
     .main {
         flex: 1;
     }
@@ -57,4 +57,13 @@
             font-size: 30px;
         }
     }
+}
+
+.selectCard{
+    background-color: var(--neutral-2-color);
+    transition: background .4s;
+}
+.normal{
+    background-color: white;
+    transition: background .4s;
 }

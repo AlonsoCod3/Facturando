@@ -15,13 +15,13 @@
     </div>
 }
 @else if (typo == "daily"){
-    <div class="daily">
+    <div class="daily" [ngClass]="tData.select? 'selectCard': 'normal'" (click)="clickable(input_of_card,tData,'card')" id="{{tData.id}}">
         <div class="main">
-            <section class="title">ceviche</section>
-            <input type="checkbox">
+            <section class="title">{{tData.value}}</section>
+            <input type="checkbox" #input_of_card (click)="$event.stopPropagation();clickable(input_of_card,tData)" [checked]="tData.select">
             <section class="content">
                 <div>
-                    <span>S/. 50</span>
+                    <span>S/. {{this.tData.price}}</span>
                 </div>
             </section>
         </div>
