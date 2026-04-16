@@ -2,7 +2,7 @@
     <div class="resumen">
         <section class="title"><b>ENERO</b></section>
         <button class="eye-show">
-            ojo
+            <i class="fa fa-eye"></i>
         </button>
         <section class="content">
             <div>
@@ -23,6 +23,89 @@
                 <div>
                     <span>S/. {{this.tData.price}}</span>
                 </div>
+            </section>
+        </div>
+    </div>
+}
+@else if (typo == "list"){
+    <div class="normal" [ngClass]="version? 'list':'grid'">
+        <div class="main">
+            <!-- <section class="title">B004</section> -->
+            <section class="content">
+             <table>
+                <tr>
+                    <td>
+                        <input type="checkbox" >
+                    </td>
+                    <td>
+                        <div>
+                            <span>B004</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>12 / 12 / 25</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>DNI 62222332</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>S/. 1000.09</span>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="fa fa-download"></button>
+                        <button class="fa fa-trash"></button>
+                    </td>
+                </tr>
+             </table>
+            </section>
+        </div>
+    </div>
+}
+@else if (typo == "grid"){
+    <div class="normal" [ngClass]="version? 'list':'grid'">
+        <div class="main">
+            <!-- <section class="title">B004</section> -->
+            <section class="content">
+             <table>
+                <tr>
+                    <td hidden >
+                        <input type="checkbox" >
+                    </td>
+                    <td>
+                        <div class="title">
+                            <span>B004</span>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="fa fa-eye"></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="document">
+                            <span>62222332</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="amount">
+                            <span>S/. 1000.09</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="date">
+                            <span>12 / 12 / 25</span>
+                        </div>
+                    </td>
+                </tr>
+             </table>
             </section>
         </div>
     </div>

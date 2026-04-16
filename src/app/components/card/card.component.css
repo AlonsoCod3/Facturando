@@ -59,6 +59,59 @@
     }
 }
 
+.list {
+    color: black;
+    border: 1px solid;
+    .main , .content {
+        display: flex;
+    }
+    .main {
+        /* gap: 20px; */
+        padding: 10px;
+    }
+    .content {
+        flex: 1
+    }
+    table {
+        flex:1;
+        td {
+            padding: 5px 10px;
+            /* width: 100% */
+        }
+    }
+}
+.grid {
+    display: flex;
+    flex-direction: column;
+    color: black;
+    padding: 20px;
+    border-radius:10px;
+    width: 250px;
+    table{
+        width:100%
+    }
+    .title {
+        width: 100%;
+        font-weight:bolder;
+        font-size: 32px;
+    }
+    tr {
+        display: flex;
+        justify-content: space-between;
+        /* td {
+        } */
+    }
+    tr:last-child{
+        justify-content: end;
+        margin-top:10px;
+        margin-bottom:-10px
+    }
+    .date{
+        flex:1fr;
+        justify-content: space-between;
+        font-weight: bolder;
+    }
+}
 .selectCard{
     background-color: var(--neutral-2-color);
     transition: background .4s;

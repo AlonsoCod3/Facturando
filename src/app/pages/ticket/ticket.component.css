@@ -45,6 +45,7 @@ gap: attr(data-gap px)
     height: 100%;
     border-radius: 5px;
     overflow-x: auto;
+    gap:0
 }
 .dark {
     background-color: #151c26;
