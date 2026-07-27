@@ -21,13 +21,14 @@ export class SidebarComponent {
   public routes = [
     ['', 'fa fa-home', 'Dashboard'],
     // ['config', 'not', 'Configuración'],
-    ['/tickets','fa fa-receipt','Boletas',[
+    ['tickets','fa fa-receipt','Boletas',[
       ['new','fa fa-plus','Nueva boleta']
     ]],
     ['products', 'fa fa-tags', 'Productos',[
       ['new','fa fa-plus','Crear Producto'],
       ['detail','fa fa-eye','Detalle de Producto'],
-    ]]
+    ]],
+    ['clients', 'fa fa-users', 'Clientes']
   ];
 
   public sidebarToggle() {
