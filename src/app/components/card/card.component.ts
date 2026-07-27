@@ -12,7 +12,7 @@ export class CardComponent implements OnInit{
   @Input("typo") typo : string = ""
 
   // Data only of card selectable
-  @Input("typo-data") tData : {value:string, price:string,id:string,select:boolean}
+  @Input("typo-data") tData : {}
   @Input("card_ver") version : boolean
   @Output("arrayClickable") arrayClickable: EventEmitter<any> = new EventEmitter();
   @Output("arrayUnclickable") arrayUnclickable: EventEmitter<any> = new EventEmitter();
