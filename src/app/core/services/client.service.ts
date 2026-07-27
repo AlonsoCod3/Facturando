@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal} from '@angular/core';
 import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { CachingService } from './caching.service';
 
@@ -11,6 +11,9 @@ export class ClientService {
 
   private http = inject(HttpClient)
   private cacheService = inject(CachingService)
+
+  private dataCache = signal<any[] | null>(null);
+
   constructor() { }
 
   public getDni(value:string):Observable<any> {
@@ -46,5 +49,26 @@ export class ClientService {
       map(response => response),
       catchError(requestError => throwError(requestError))
     )
+  }
+
+  getData() {
+    if (this.dataCache()) {
+      return new Observable(observer => {
+        observer.next(this.dataCache()!);
+        observer.complete();
+      });
+    }
+
+    return this.http.get<any[]>(this.path).pipe(
+      tap(posts => this.dataCache.set(posts))
+    );
+  }
+
+  setCache(data: any) {
+    this.dataCache.set(data);
+  }
+
+  clearCache() {
+    this.dataCache.set(null);
   }
 }
