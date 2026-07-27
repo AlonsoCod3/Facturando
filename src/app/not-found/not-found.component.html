@@ -1,1 +1,10 @@
-<p>not-found works!</p>
+<p>404</p>
+@if(errorType() === "tiemout"){
+    <p>La solicitud tardó demasiado. Intenta de nuevo</p>
+}
+@if(errorType() === "connection"){
+    <p>No se pudo conectar al servidor</p>
+}
+@if(errorType() === "http"){
+    <p>Error HTTP {{errorCode()}}</p>
+}
