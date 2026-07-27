@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { isNotLoggedGuard } from './app/guards/is-not-logged.guard';
+import { clientResolver } from './app/pages/ticket/ticket.resolver';
+import { productResolver } from './app/pages/product/product.resolver';
 const routes: Routes = [
   {
     // Sin cuenta
@@ -34,6 +36,7 @@ const routes: Routes = [
       // },
       {
         path: 'tickets',
+        // resolve: { data: clientResolver },
         children: [
           { path: "", loadComponent: () => import('./app/pages/ticket/ticket.component').then( (m) => m.TicketComponent ) },
           { path: "new", loadComponent: () => import('./app/pages/ticket/new/new.component').then( (m) => m.NewComponent ) }
@@ -41,12 +44,19 @@ const routes: Routes = [
       },
       {
         path: 'products',
+        // resolve: { data: productResolver },
         children: [
           { path: "", loadComponent: () => import('./app/pages/product/product.component').then( (m) => m.ProductComponent ) },
           { path: "new", loadComponent: () => import('./app/pages/product/new-product/new-product.component').then( (m) => m.NewProductComponent ) },
           { path: "edit/:id", loadComponent: () => import('./app/pages/product/detail-product/detail-product.component').then( (m) => m.DetailProductComponent ) },
           { path: "detail", loadComponent: () => import('./app/pages/product/detail-product/detail-product.component').then( (m) => m.DetailProductComponent )},
           { path: "view/:id", loadComponent: () => import('./app/pages/product/detail-product/detail-product.component').then( (m) => m.DetailProductComponent )},
+        ]
+      },
+      {
+        path: 'clients',
+        children: [
+          { path: "", loadComponent: () => import('./app/pages/clients/clients.component').then( (m) => m.ClientsComponent ) },
         ]
       },
     ],
