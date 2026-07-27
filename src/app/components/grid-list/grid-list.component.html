@@ -1,0 +1,67 @@
+@if(customer==false){
+    <article>
+        @if (gridList) {
+            <div class="header-bar">
+                <div class="title">
+                    {{ sectionTitle }}
+                </div>
+                <div class="buttonActions">
+                    <label [for]="'grid_'+sectionTitle">
+                        Grid
+                        <input type="radio" [name]="'view_'+sectionTitle" [id]="'grid_'+sectionTitle" value="grid" [formControl]="type">
+                    </label>
+                    <label [for]="'list_'+sectionTitle">
+                        List
+                        <input type="radio" [name]="'view_'+sectionTitle" [id]="'list_'+sectionTitle" value="list" [formControl]="type">
+                    </label>
+                </div>
+            </div>
+        }
+        <section class="last-tickets">
+            <div class="section-card dark" data-pad="20" #cardNow>
+                <section class=" gap" data-gap="20" [ngClass]="section.cad? 'c-height': 'c-width'">
+                    <div class="over">
+                        <div class="tabl gap" data-gap="16">
+                            @for (item of [].constructor(5); track $index) {
+                                <app-card [typo]="section.type" [card_ver]="section.cad"/>
+                            }
+                        </div>
+                    </div>
+                    <button class="list-table">
+                        Ver listado
+                    </button>
+                </section >
+                <div class="options">
+                    <button class="float" (click)="controlCard(cardNow)">
+                        Ampliar
+                    </button>
+                </div>
+            </div>
+        </section>
+    </article>
+}
+@else if(customer){
+    <article>
+        <section class="last-tickets">
+            <div class="section-card dark" data-pad="20" #cardNow>
+                <section class=" gap" data-gap="20" [ngClass]="section.cad? 'c-height': 'c-width'">
+                    <div class="over">
+                        <div class="tabl gap" data-gap="16">
+                            @for (item of data; track $index) {
+                                <app-card [typo]="'customer'" [card_ver]="true" [typo-data]="item"/>
+                            }
+                        </div>
+                    </div>
+                    <button class="list-table">
+                        Ver listado
+                    </button>
+                </section >
+                <div class="options">
+                    <button class="float" (click)="controlCard(cardNow)">
+                        Ampliar
+                    </button>
+                </div>
+            </div>
+        </section>
+    </article>
+}
