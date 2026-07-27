@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { CachingService } from './caching.service';
 import { Observable, catchError, map, tap, throwError } from 'rxjs';
 
@@ -7,14 +7,16 @@ import { Observable, catchError, map, tap, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductService {
-  private path = "https://api-fact.onrender.com"
+  private pathProducts = import.meta.env.NG_APP_PRODUCT
 
   private http = inject(HttpClient)
   private cacheService = inject(CachingService)
+  private dataCache = signal<any[] | null>(null);
+
   constructor() { }
 
   public getProducts():Observable<any> {
-    const url = `${this.path}/productos/`
+    const url = `${this.pathProducts}/products/`
     const cachedResponse = this.cacheService.get(url);
     if (cachedResponse){
       return cachedResponse
@@ -28,7 +30,7 @@ export class ProductService {
     }
   }
   public newProduct(body:any):Observable<any> {
-    const url = `${this.path}/productos/`
+    const url = `${this.pathProducts}/products/`
     // const cachedResponse = this.cacheService.get(url);
     // if (cachedResponse){
     //   return cachedResponse
@@ -40,5 +42,26 @@ export class ProductService {
         catchError(requestError=>throwError(requestError))
       )
     // }
+  }
+
+  getData() {
+    if (this.dataCache()) {
+      return new Observable(observer => {
+        observer.next(this.dataCache()!);
+        observer.complete();
+      });
+    }
+
+    return this.http.get<any[]>(this.pathProducts + "/verify").pipe(
+      tap(posts => this.dataCache.set(posts))
+    );
+  }
+
+  setCache(data: any) {
+    this.dataCache.set(data);
+  }
+
+  clearCache() {
+    this.dataCache.set(null);
   }
 }
