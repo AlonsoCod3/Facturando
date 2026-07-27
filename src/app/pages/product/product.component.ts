@@ -23,9 +23,9 @@ export class ProductComponent {
     private productService: ProductService
   ){}
   ngOnInit(){
-    setTimeout(() => {
+    // setTimeout(() => {
       this.getProducts()
-    }, 1000);
+    // }, 1000);
       
   }
 

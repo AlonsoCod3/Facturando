@@ -1,96 +1,14 @@
 <div class="main-container">
     <header>
         <div id="searchBar">
+            <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Buscar Boletas">
         </div>
         <button [routerLink]="['new']">+ Nueva</button>
     </header>
     <section class="content">
-        <article id="now">
-            <div class="header-bar">
-                <div class="title">
-                    Hoy
-                </div>
-                <div class="buttonActions">
-                    <button (click)="changeData('grid', cardNow, 'section1')">Grid</button>
-                    <button (click)="changeData('list', cardNow, 'section1')">List</button>
-                </div>
-            </div>
-            <section class="last-tickets">
-                <div class="section-card dark" data-pad="20" #cardNow>
-                    <section class="c-height gap" data-gap="20" >
-                        @for (item of [].constructor(5); track $index) {
-                        <app-card [typo]="section1.type" [card_ver]="section1.cad"/>
-                        }
-                        <button>
-                            Ver listado
-                        </button>
-                    </section >
-                    <div class="options">
-                        <button class="float" (click)="controlCard(cardNow)">
-                            Ver más
-                        </button>
-                    </div>
-                </div>
-            </section>
-        </article>
-
-        <article id="yesterday">
-            <div class="header-bar">
-                <div class="title">
-                    Ayer
-                </div>
-                <div class="buttonActions">
-                    <button (click)="changeData('grid',cardYesterday, 'section2')">Grid</button>
-                    <button (click)="changeData('list',cardYesterday, 'section2')">List</button>
-                </div>
-            </div>
-            <section class="last-tickets">
-                <div class="section-card dark" data-pad="20" #cardYesterday>
-                    <section class="c-width gap" data-gap="20">
-                        @for (item of [].constructor(5); track $index) {
-                        <app-card [typo]="section2.type" [card_ver]="section2.cad"/>
-                        }
-                        <button>
-                            Ver listado
-                        </button>
-                    </section >
-                    <div class="options">
-                        <button class="float" (click)="controlCard(cardYesterday)">
-                            Ver más
-                        </button>
-                    </div>
-                </div>
-            </section>
-        </article>
-
-        <article id="dayBefore">
-            <div class="header-bar">
-                <div class="title">
-                    Ultima semana
-                </div>
-                <div class="buttonActions">
-                    <button (click)="changeData('grid',cardBefore, 'section3')">Grid</button>
-                    <button (click)="changeData('list',cardBefore, 'section3')">List</button>
-                </div>
-            </div>
-            <section class="last-tickets">
-                <div class="section-card dark" data-pad="20" #cardBefore>
-                    <section class="c-width gap" data-gap="20">
-                        @for (item of [].constructor(5); track $index) {
-                        <app-card [typo]="section3.type" [card_ver]="section3.cad"/>
-                        }
-                        <button>
-                            Ver listado
-                        </button>
-                    </section >
-                    <div class="options">
-                        <button class="float" (click)="controlCard(cardBefore)">
-                            Ver más
-                        </button>
-                    </div>
-                </div>
-            </section>
-        </article>
+        <app-grid-list [sectionTitle]="'Hoy'" [data]="[]" [form]="'grid'"></app-grid-list>
+        <app-grid-list [sectionTitle]="'Ayer'" [data]="[]" [form]="'list'"></app-grid-list>
+        <app-grid-list [sectionTitle]="'Antes'" [data]="[]" [form]="'list'"></app-grid-list>
     </section>
 </div>

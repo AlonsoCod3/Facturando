@@ -84,7 +84,7 @@ button {
             border-bottom: 2px solid black;
         }
         tbody tr:nth-child(odd){
-            background-color: orange;
+            background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
         }
         tbody tr {
             border-top: 1px solid black;
