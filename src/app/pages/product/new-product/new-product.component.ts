@@ -113,7 +113,7 @@ export class NewProductComponent {
     delete leido["category"]
     leido['price'] = Number(leido['price'])
     if (leido.variants){
-      leido.variants.map(x:any => {
+      leido.variants.map((x:any) => {
         x['price'] = Number(x['price'])
       })
     }
