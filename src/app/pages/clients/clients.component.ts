@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ClientService } from '../../core/services/client.service';
 import { finalize } from 'rxjs/operators';
 import { CustomerService } from '../../core/services/customer.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-clients',
@@ -13,19 +14,19 @@ import { CustomerService } from '../../core/services/customer.service';
 })
 export class ClientsComponent {
 
-  @ViewChild("resultInput") inputResult:ElementRef<HTMLInputElement>
+  @ViewChild("resultInput") inputResult!:ElementRef<HTMLInputElement>
 
   // SearchField
-  searchForm:FormGroup
+  searchForm!:FormGroup
   
   // CreateField
-  createForm:FormGroup
+  createForm!:FormGroup
 
   result:boolean = false
-  resultado:string
+  resultado!:string
 
-  list_dni
-  list_ruc
+  list_dni!:any
+  list_ruc!:any
 
   metodos = {
     dni: (valor:string) => this.clientService.getDni(valor),
@@ -48,50 +49,50 @@ export class ClientsComponent {
   }
   ngOnInit(){
     // search
-    this.s_type.valueChanges.subscribe(()=>{
-      this.s_doc.setValue("")
+    this.s_type?.valueChanges.subscribe(()=>{
+      this.s_doc?.setValue("")
     })
-    this.s_type.valueChanges.subscribe((data)=>{
+    this.s_type?.valueChanges.subscribe((data)=>{
       if(data == "ruc"){
-        this.s_doc.clearValidators()
-        this.s_doc.addValidators(Validators.compose([
+        this.s_doc?.clearValidators()
+        this.s_doc?.addValidators(([
           Validators.minLength(11),
           Validators.maxLength(11)
         ]))
-        this.s_doc.updateValueAndValidity()
+        this.s_doc?.updateValueAndValidity()
       }
       else{
-        this.s_doc.clearValidators()
-        this.s_doc.addValidators(Validators.compose([
+        this.s_doc?.clearValidators()
+        this.s_doc?.addValidators(([
           Validators.minLength(8),
           Validators.maxLength(8)
         ]))
-        this.s_doc.updateValueAndValidity()
+        this.s_doc?.updateValueAndValidity()
       }
     })
 
     // create
-    this.c_type.valueChanges.subscribe(()=>{
-      this.c_doc.setValue("")
+    this.c_type?.valueChanges.subscribe(()=>{
+      this.c_doc?.setValue("")
     })
-    this.c_type.valueChanges.subscribe((data)=>{
+    this.c_type?.valueChanges.subscribe((data)=>{
       if(data == "ruc"){
-        this.c_doc.clearValidators()
-        this.c_doc.addValidators(Validators.compose([
+        this.c_doc?.clearValidators()
+        this.c_doc?.addValidators(([
           Validators.required,
           Validators.minLength(11),
           Validators.maxLength(11)
         ]))
-        this.c_doc.updateValueAndValidity()
+        this.c_doc?.updateValueAndValidity()
       }
       else{
-        this.c_doc.clearValidators()
-        this.c_doc.addValidators(Validators.compose([
+        this.c_doc?.clearValidators()
+        this.c_doc?.addValidators(([
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(8)
         ]))
-        this.c_doc.updateValueAndValidity()
+        this.c_doc?.updateValueAndValidity()
       }
     })
   }
@@ -125,7 +126,7 @@ export class ClientsComponent {
     // )
   }
 
-  ejecutar(type: string, value) {
+  ejecutar(type: keyof typeof this.metodos, value:string) {
     return this.metodos[type]?.(value);
   }
 

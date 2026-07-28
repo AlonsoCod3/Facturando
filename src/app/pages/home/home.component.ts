@@ -12,8 +12,8 @@ import { Form, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@
 export class HomeComponent {
   titlePage = 'Bienvenido Alonso';
 
-  @ViewChild("trash") trashButton : ElementRef;
-  @ViewChild("plus") plusButton : ElementRef;
+  @ViewChild("trash") trashButton!: ElementRef
+  @ViewChild("plus") plusButton!: ElementRef
 
   @ViewChild("dialog") dialog!:ElementRef
   @ViewChild("name_product") name_product!:ElementRef
@@ -62,11 +62,11 @@ export class HomeComponent {
       this.dialog.nativeElement.close()
     }
   }
-  public selectItems(value){
+  public selectItems(value:any){
     this.finalItems.push(value)
     this.contentItemSelect = this.finalItems.length
   }
-  public unSelectItem(value){
+  public unSelectItem(value:any){
     let indexToDelete = this.finalItems.findIndex((item:any) => {return (value == item)})
     this.finalItems.splice(indexToDelete,1)
     this.contentItemSelect = this.finalItems.length

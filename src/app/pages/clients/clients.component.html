@@ -18,7 +18,7 @@
             </div>
             <div class="header_document">
                 <i class="fa fa-hashtag"></i>
-                <input type="text" placeholder="Número de documento" formControlName="numDoc" [maxlength]="this.s_type.value == 'dni' ? 8 : 11"/>
+                <input type="text" placeholder="Número de documento" formControlName="numDoc" [maxlength]="s_type?.value == 'dni' ? 8 : 11"/>
                 <button [disabled]="!searchForm.valid || !searchForm.dirty" (click)="searchDoc()">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
@@ -58,7 +58,7 @@
             </div>
             <div class="number_document">
                 <i class="fa fa-hashtag"></i>
-                <input type="text" placeholder="Número de documento" formControlName="numDoc" [maxlength]="this.c_type.value == 'dni' ? 8 : 11"/>
+                <input type="text" placeholder="Número de documento" formControlName="numDoc" [maxlength]="c_type?.value == 'dni' ? 8 : 11"/>
             </div>
             <div class="phone">
                 <i class="fa fa-phone"></i>

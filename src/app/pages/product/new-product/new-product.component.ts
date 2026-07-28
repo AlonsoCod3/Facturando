@@ -1,11 +1,10 @@
-import { JsonPipe } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../core/services/product.service';
 
 @Component({
   selector: 'app-new-product',
-  imports: [ReactiveFormsModule, JsonPipe],
+  imports: [ReactiveFormsModule],
   templateUrl: './new-product.component.html',
   styleUrl: './new-product.component.css'
 })
@@ -13,16 +12,16 @@ export class NewProductComponent {
   enableVariants:boolean = false
   countVariants: number = 1
 
-  productForm:FormGroup
-  name:FormControl
-  code:FormControl
-  price:FormControl
-  amount:FormControl
-  category:FormControl
+  productForm!:FormGroup
+  name!:FormControl
+  code!:FormControl
+  price!:FormControl
+  amount!:FormControl
+  category!:FormControl
 
   loader = false
   responseCreated = false
-  @ViewChild('create') dialog:ElementRef
+  @ViewChild('create') dialog!:ElementRef
 
   constructor(
     private serviceProduct: ProductService
@@ -70,8 +69,8 @@ export class NewProductComponent {
     else {
       (this.variants.controls as FormGroup[]).map(control => {
         Object.keys(control.value).map(x => {
-          control.get(x).setValidators(Validators.required)
-          control.get(x).updateValueAndValidity()
+          control.get(x)?.setValidators(Validators.required)
+          control.get(x)?.updateValueAndValidity()
         })
       })
     }	
@@ -106,14 +105,14 @@ export class NewProductComponent {
     this.dialog.nativeElement.showModal()
     const leido = {
       ...this.productForm.value,
-      variants : this.enableVariants ? this.productForm.get('variants').value : []
+      variants : this.enableVariants ? this.productForm.get('variants')?.value : []
     }
     leido["description"] = leido["category"]
     //corregir key 
     delete leido["category"]
     leido['price'] = Number(leido['price'])
     if (leido.variants){
-      leido.variants.map(x => {
+      leido.variants.map((x:any) => {
         x['price'] = Number(x['price'])
       })
     }

@@ -10,16 +10,16 @@ import { NgClass } from '@angular/common';
   styleUrl: './grid-list.component.css'
 })
 export class GridListComponent {
-  @Input() sectionTitle:string
-  @Input() data:[]
+  @Input() sectionTitle!:string
+  @Input() data!:[]
   @Input() form:string = "list"
   @Input() gridList:boolean = true
   @Input() customer:boolean = false
 
   @ViewChild("cardNow") card!:ElementRef;
 
-  type:FormControl
-  section:{type:string, cad:boolean}
+  type!:FormControl
+  section!:{type:string, cad:boolean}
   
   ngOnInit(){
     this.type = new FormControl(this.form)
