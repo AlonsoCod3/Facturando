@@ -159,7 +159,7 @@ export class NewComponent {
     .subscribe(
       (x)=> {
         console.log(x)
-        this.name.nativeElement.value = `${x.first_last_name}  ${x.second_last_name}, ${x.first_name}`
+        this.name.nativeElement.value = `${x.first_last_name} ${x.second_last_name}, ${x.first_name}`
       }
     )
   }

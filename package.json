@@ -1,5 +1,6 @@
 {
   "name": "facturando-app",
+  "version": "1",
   "private": true,
   "scripts": {
     "ng": "ng",
@@ -7,7 +8,9 @@
     "build": "ng build"
   },
   "dependencies": {
+    "@angular-devkit/build-angular": "^19.2.16",
     "@angular/animations": "^19.0.6",
+    "@angular/cli": "^19.0.7",
     "@angular/common": "^19.0.6",
     "@angular/compiler": "^19.0.6",
     "@angular/core": "^19.0.6",
@@ -21,9 +24,8 @@
   },
   "devDependencies": {
     "@angular/build": "^19.0.7",
-    "@angular/cli": "^19.0.7",
     "@angular/compiler-cli": "^19.0.6",
-    "@ngx-env/builder": "^20.0.0",
+    "@ngx-env/builder": "^19.0.5",
     "@types/node": "^24.4.0",
     "typescript": "^5.6.3"
   }

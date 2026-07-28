@@ -134,7 +134,7 @@
 .sidebar .content .links .item .menu-icon {
   min-width: 1rem;
   margin: 0 1.6rem;
-  overflow: hidden;
+  /* overflow: hidden; */
   text-align: center;
 }
 .sidebar .content .links .item .menu-icon.not::after {

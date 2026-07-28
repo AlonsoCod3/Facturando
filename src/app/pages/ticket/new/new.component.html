@@ -14,7 +14,7 @@
             <form>
                 <section>
                     <div>
-                        <label for="">
+                        <label>
                             <i class="fa fa-user"></i> Datos:
                         </label>
                     </div>
@@ -58,7 +58,7 @@
 
                 <section>
                     <div>
-                        <label for="">
+                        <label>
                             <i class="fa fa-cube"></i> Items:
                         </label>
                         <button class="primary">Nuevo</button>
@@ -135,12 +135,12 @@
             <div>
                 <span>
                     <i class="fa fa-box"></i>
-                    <input type="text" placeholder="Producto" [formControl]="p_name" (input)="firstLetter($event)" #name_product>
+                    <input name="products" type="text" placeholder="Producto" [formControl]="p_name" (input)="firstLetter($event)" #name_product>
                 </span>
             </div>
             <div>
                 <span>
-                    <input type="text" name="" id="" placeholder="Código" tabindex="-1">
+                    <input name="code" type="text" name="" id="" placeholder="Código" tabindex="-1">
                 </span>
             </div>
         </section>
@@ -150,14 +150,14 @@
                     Precio
                     <span>
                         S/.
-                        <input type="text" class="price" placeholder="00.00" [formControl]="p_price" (keypress)="numberPress($event)">
+                        <input type="text" id="price" class="price" placeholder="00.00" [formControl]="p_price" (keypress)="numberPress($event)">
                     </span>
                 </label>
                 <div class="amount">
                     Cantidad
                     <span><button tabindex="-1" type="button" (click)="subtractAmount()">-</button></span>
                     <span>
-                        <input placeholder="Cantidad" [formControl]="p_amount" (keypress)="numberPress($event)" id="amount">
+                        <input name="amount" placeholder="Cantidad" [formControl]="p_amount" (keypress)="numberPress($event)" id="amount">
                     </span>
                     <span><button tabindex="-1" type="button" (click)="addAmount()">+</button></span>
                 </div>

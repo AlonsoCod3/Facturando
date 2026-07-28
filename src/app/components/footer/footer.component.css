@@ -8,9 +8,14 @@ footer {
   font-size: 0.825rem;
   font-family: 'roboto-light', sans-serif;
   height: 40px;
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 footer a {
   color: var(--footer-resalt);
   font-size: inherit;
+  text-decoration: underline;
 }

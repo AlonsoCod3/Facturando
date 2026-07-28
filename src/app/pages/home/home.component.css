@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  gap:15px
 }
 /* NOMBRE DE PAGINA */
 .content .title {
@@ -25,7 +26,7 @@ main {
   height: 100%;
   /* grid-template-columns: minmax(0, 100%); */
   grid-template-rows: min-content 1fr;
-  gap: 10px;
+  gap: 15px;
 }
 /* ESTILO DE TARJETA SECCIONES */
 .section-card {
@@ -41,6 +42,9 @@ main {
   flex-direction: row;
   overflow-x: auto;
   border-radius: 5px;
+  white-space: nowrap;
+  scrollbar-width: none;
+  max-width: 100vw;
 }
 .c-height {
   display: flex;
@@ -68,12 +72,19 @@ main {
   scrollbar-width: none;
   max-width: 100vw;
 }
+/* HACER DESPLAZAMIENTO HORIZONTAL CON SCROLL
+ $('html, body, *').mousewheel(function(e, delta) {
+this.scrollLeft -= (delta);
+e.preventDefault();
+});
+});
+*/
 /* SECCION 2 */
 .section-data {
   display: flex;
   flex-direction: row;
   height: 100%;
-  gap: 10px;
+  gap: 15px;
   overflow: hidden;
 }
 .section-data .section-card{
@@ -101,6 +112,12 @@ main {
     justify-content: space-between;
   }
 }
+.section-data div:not(#daily) .movimientos{
+  scrollbar-width: thin;
+  scrollbar-color: #151c26 transparent;
+  padding-right: 10px;
+}
+
 #daily {
   display: flex;
   flex-direction: column;
@@ -109,14 +126,222 @@ main {
 
 .header-section {
   display: flex;
+  gap: 10px;
+  justify-content: center;
   text-align: center;
   .date {
     flex: 1;
+    /* background: grey; */
+    border-radius: 6px;
+    align-content:center;
+  }
+  div:not(.date) button{
+    width: 30px;
+    height: 30px;
+    cursor:pointer;
+    border-radius: 6px;
+    background: none;
+    border: 1px solid white;
+    color: white;
   }
 }
 .content-section .movimientos {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 160px);
+  /* display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
   gap: 10px;
-  justify-content: space-around;
+  justify-content: space-around; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  *{
+    flex-grow: 1;
+    min-height: 120px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    text-align: center;
+  }
+}
+
+dialog {
+  top: 50%;
+  left: 50%;
+  border: none;
+  background-color: #E9EAE4;
+  width: 450px;
+  padding: 50px 20px 21px;
+  border-radius: 10px;
+  position: relative;
+  transform: translate(-50%, -50%);
+  >form {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      button {
+          border-radius: 50%;
+          border: 2px solid;
+          width: 30px;
+          height: 30px;
+          text-align: center;
+      }
+  }
+  button:not(:disabled), input[type=checkbox] {
+      cursor: pointer;
+  }
+  span {
+      display: inline-flex;
+      padding: 4px 11px;
+      border-radius: 100px;
+      background-color: white;
+      color: gray;
+      /* transition: all .3s; */
+      i {
+          align-content: center;
+      }
+      .price {
+          text-align: right;
+      }
+      input {
+          outline: none;
+          border: none;
+          height: 25px;
+          width: 100%;
+          text-indent:  10px;
+          border: none;
+          position: relative;
+          background: none;
+      }
+      /*validationes*/
+      &:has(input.ng-invalid:not(form).ng-touched) {
+          color: red;
+      }
+      &:has(input.ng-invalid:not(form).ng-touched::placeholder) {
+          color: red;
+      }
+      &:has(input.ng-valid:not(form).ng-touched) {
+          border: 1px solid #005ea6;
+      }
+      &:has(input.ng-invalid:not(form).ng-touched) {
+          border: 1px solid red;
+      }
+  }
+  article {
+      form {
+          padding-block: 10px;
+          display: grid;
+          gap: 20px;
+      }
+      
+      section {
+          div {
+              display: flex;
+              flex-direction: column;
+              gap: 20px;
+          }
+          label {
+              display: flex;
+              gap: 20px;
+              align-items: center;
+          }
+          span {
+              flex: 1;
+          }
+          .amount {
+              display: flex;
+              gap: 20px;
+              flex-direction: row;
+              align-items: center;
+              input {
+                  text-align: right;
+              }
+              span {
+                  button {
+                      border: none;
+                      background: none;
+                      outline: none;
+                      height: 25px;
+                      width: 100%;
+                  }
+                  &:has(button){
+                      flex: .1;
+                      justify-content: center;
+                  }
+                  &:has(button:focus) {
+                      outline: 3px solid #95acbf;
+                  }
+              }
+          }
+      }
+      .more {
+          padding-block: 10px;
+          label {
+              display: flex;
+              gap: 20px;
+              align-items: center;
+              padding-block: 10px;
+          }
+          .items {
+              display: grid;
+              gap: 10px;
+              margin-bottom: 10px;
+              .item{
+                  display: grid;
+                  grid-template-columns: 70px repeat(2, 1fr);
+                  gap: 15px;
+              }
+          }
+          .body_more {
+              display: grid;
+              gap: 10px;
+              grid-template-columns: 1fr;
+              padding-block: 10px;
+              button {
+                  height: 25px;
+                  background: none;
+                  border: 1px solid black;
+                  border-radius: 5px;
+                  &:hover {
+                      background-color: red;
+                  }
+              }
+          }
+      }
+  }
+}
+dialog::backdrop {
+  background-color: black;
+  opacity: .5;
+}
+.temblor {
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+button.primary {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  background-color: grey;
+  font-size: 1rem;
+  color: whitesmoke;
+  float: right;
+  outline: none;
+  &:hover {
+      &:not(:disabled){
+          background-color: black;
+      }
+  }
+  &:disabled{
+      background-color: red;
+  }
+  &:focus {
+      outline: 3px solid #95acbf;
+  }
 }

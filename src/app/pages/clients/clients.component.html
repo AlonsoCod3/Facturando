@@ -1,0 +1,89 @@
+<div class="main-container">
+    <!-- Bar Search Client-->
+    <header>
+        <div id="searchBar" [formGroup]="searchForm">
+            <div class="name">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input class="nameForm" type="text" placeholder="Buscar Cliente" formControlName="name">
+            </div>
+            <div class="documents">
+                <label for="document_dni">
+                    <input type="radio" name="search_type" id="document_dni" value="dni" formControlName="search_type">
+                        <p>DNI</p>
+                </label>
+                <label for="document_ruc">
+                    <input type="radio" name="search_type" id="document_ruc" value="ruc" formControlName="search_type">
+                        <p>RUC</p>
+                </label>
+            </div>
+            <div class="header_document">
+                <i class="fa fa-hashtag"></i>
+                <input type="text" placeholder="Número de documento" formControlName="numDoc" [maxlength]="s_type?.value == 'dni' ? 8 : 11"/>
+                <button [disabled]="!searchForm.valid || !searchForm.dirty" (click)="searchDoc()">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    <!--  Result of Client-->
+
+    <div>
+        <div #resultInput [hidden]="!this.result"> 
+            <span>Nombre: </span> {{resultado}}
+        </div>
+    </div>
+
+    <!-- Form Create Client-->
+    <header class="light pad" data-pad="20" [formGroup]="createForm">
+        <div class="title">
+            <i class="fa fa-address-card"></i>
+            Crear nuevo cliente
+        </div>
+        <div class="data">
+            <div id="createName">
+                <i class="fa-solid fa-user"></i>
+                <input class="nameForm" type="text" placeholder="Nombre de cliente" formControlName="name">
+            </div>
+        </div>
+        <div class="data ">
+            <div class="type_document">
+                <label for="create_dni">
+                    <input type="radio" name="type" id="create_dni" value="dni" formControlName="type">
+                        <p>DNI</p>
+                </label>
+                <label for="create_ruc">
+                    <input type="radio" name="type" id="create_ruc" value="ruc" formControlName="type">
+                        <p>RUC</p>
+                </label>
+            </div>
+            <div class="number_document">
+                <i class="fa fa-hashtag"></i>
+                <input type="text" placeholder="Número de documento" formControlName="numDoc" [maxlength]="c_type?.value == 'dni' ? 8 : 11"/>
+            </div>
+            <div class="phone">
+                <i class="fa fa-phone"></i>
+                <input type="text" placeholder="Número de Celular (Opcional)" formControlName="phoneNumber" [maxlength]="9"/>
+            </div>
+        </div>
+            <div class="actionsButton">
+                <button class="button_square" [disabled]="!createForm.valid || !createForm.dirty" (click)="createClient()">Guardar Cliente</button>
+            </div>
+    </header>
+
+    <section class="section-data">
+        <div class="section-card">
+            <div class="title"><h1>RUC</h1></div>
+            <app-grid-list class="dark"
+            [data]="list_ruc"
+            [customer]="true"
+            ></app-grid-list>
+        </div>
+        <div class="section-card">
+            <div class="title"><h1>DNI</h1></div>
+            <app-grid-list
+            [data]="list_dni"
+            [customer]="true"
+            ></app-grid-list>
+        </div>
+    </section>
+</div>
