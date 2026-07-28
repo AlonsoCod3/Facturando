@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProductService } from '../../core/services/product.service';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -12,6 +13,8 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 })
 export class ProductComponent {
 
+  private destroyRef = inject(DestroyRef);
+
   products:any = []
   seleccionar:boolean= false
 
@@ -23,17 +26,15 @@ export class ProductComponent {
     private productService: ProductService
   ){}
   ngOnInit(){
-    // setTimeout(() => {
       this.getProducts()
-    // }, 1000);
-      
   }
 
   private getProducts(){
     this.productService.getProducts()
+    // activar solo si necesito eliminar la peticion cuando salgo de pagina
+    // .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next:(data)=> {
-          console.log(data)
           this.products = data
           this.loader = false
         },
