@@ -39,6 +39,16 @@ const routes: Routes = [
           { path: "new", loadComponent: () => import('./app/pages/ticket/new/new.component').then( (m) => m.NewComponent ) }
         ]
       },
+      {
+        path: 'products',
+        children: [
+          { path: "", loadComponent: () => import('./app/pages/product/product.component').then( (m) => m.ProductComponent ) },
+          { path: "new", loadComponent: () => import('./app/pages/product/new-product/new-product.component').then( (m) => m.NewProductComponent ) },
+          { path: "edit/:id", loadComponent: () => import('./app/pages/product/detail-product/detail-product.component').then( (m) => m.DetailProductComponent ) },
+          { path: "detail", loadComponent: () => import('./app/pages/product/detail-product/detail-product.component').then( (m) => m.DetailProductComponent )},
+          { path: "view/:id", loadComponent: () => import('./app/pages/product/detail-product/detail-product.component').then( (m) => m.DetailProductComponent )},
+        ]
+      },
     ],
   },
   {
@@ -51,7 +61,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    pathMatch: 'full',
+    pathMatch: 'prefix',
     redirectTo: '404',
   },
   {

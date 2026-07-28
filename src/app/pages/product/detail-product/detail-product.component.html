@@ -1,0 +1,58 @@
+<!-- @if(!detail){
+    <main>
+        <div>
+            <p>Ingrese C&oacute;digo de Producto</p>
+            <span>
+                <input type="text" placeholder="0 0 0 0" maxlength="4" minlength="1">
+                -
+                <input type="text" placeholder="0 0" maxlength="2">
+            </span>
+        </div>
+    </main>
+} 
+@else{
+
+} -->
+<div class="main-container">
+    <header>
+        <button routerLink=".."><</button>
+        <!-- [routerLink]="['new']" -->
+        <div id="searchBar">
+            <span>Detalle Producto</span>
+        </div>
+    </header>
+    <section id="content">
+        <div class="parent">
+            <div>
+                Variante
+            </div>
+            <div>
+                <p>Producto principal :</p>
+                <a href="">
+                    <p>Ceviche</p>
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <label>
+                <span>Nombre :</span>
+                <p>Ceviche</p>
+            </label>
+            <label>
+                <span>Precio :</span>
+                <p>25</p>
+            </label>
+            <label>
+                <span>Descripcion :</span>
+                <p>Sin nada</p>
+            </label>
+        </div>
+    </section>
+    <div class="actions">
+        <button>Crear nueva variante</button>
+        <div>
+            <button>Editar</button>
+            <button>Eliminar</button>
+        </div>
+    </div>
+</div>
