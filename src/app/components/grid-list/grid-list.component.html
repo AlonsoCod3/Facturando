@@ -46,21 +46,45 @@
             <div class="section-card dark" data-pad="20" #cardNow>
                 <section class=" gap" data-gap="20" [ngClass]="section.cad? 'c-height': 'c-width'">
                     <div class="over">
-                        <div class="tabl gap" data-gap="16">
-                            @for (item of data; track $index) {
-                                <app-card [typo]="'customer'" [card_ver]="true" [typo-data]="item"/>
+                        <div class="tabl customer" data-gap="5">
+                            @if( loader.load ){
+                                @for (item of [].constructor(7); track $index) {                                
+                                    <app-card [typo]="'customer_load'"></app-card>
+                                }
+                            }
+                            @else if(!loader.load && loader.error){
+                                <div class="error">
+                                    @if (loader.message){
+                                        Ocurri&oacute; un error al obtener la informaci&oacute;n
+                                    }
+                                    @else {
+                                        No se encontr&oacute; informaci&oacute;n para mostrar
+                                    }
+                                    <button type="button" (click)="refresh()">
+                                        <i class="fa fa-refresh"></i>
+                                    </button>
+                                </div>
+                            }
+                            @else{
+                                @for (item of data; track $index) {
+                                    <app-card [typo]="'customer'" [card_ver]="true" [typo-data]="item"/>
+                                }
                             }
                         </div>
                     </div>
-                    <button class="list-table">
-                        Ver listado
-                    </button>
+                    @if(!loader.load && data.length>= 10){
+                        <button class="list-table">
+                            Ver listado
+                        </button>
+                    }
                 </section >
-                <div class="options">
-                    <button class="float" (click)="controlCard(cardNow)">
-                        Ampliar
-                    </button>
-                </div>
+                @if(!loader.load && data.length >= 10){
+                    <div class="options">
+                        <button class="float" (click)="controlCard(cardNow)">
+                            Ampliar
+                        </button>
+                    </div>
+                }
             </div>
         </section>
     </article>

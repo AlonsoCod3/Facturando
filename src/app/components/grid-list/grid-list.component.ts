@@ -1,20 +1,30 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-grid-list',
-  imports: [CardComponent, ReactiveFormsModule, NgClass],
+  imports: [CardComponent, ReactiveFormsModule, NgClass, NgxSkeletonLoaderModule],
   templateUrl: './grid-list.component.html',
   styleUrl: './grid-list.component.css'
 })
 export class GridListComponent {
   @Input() sectionTitle!:string
-  @Input() data!:[]
+  @Input() data!:any[]
   @Input() form:string = "list"
   @Input() gridList:boolean = true
   @Input() customer:boolean = false
+
+
+  @Input() loader:{load:boolean, error:boolean, message:boolean} = 
+  {
+    load:false,
+    error:false,
+    message:false
+  }
+  @Output("refresh") refreshCustomer:EventEmitter<any> = new EventEmitter();
 
   @ViewChild("cardNow") card!:ElementRef;
 
@@ -45,6 +55,10 @@ export class GridListComponent {
     card.classList.contains("expand") ?
     card.classList.remove("expand") :
     card.classList.add("expand")
+  }
+
+  refresh(){
+    this.refreshCustomer.emit(true)
   }
   
 }
