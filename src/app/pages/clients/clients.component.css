@@ -12,7 +12,12 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px
+    gap: 5px;
+    position: relative;
+    button{
+      position:absolute;
+      right: 0;
+    }
   }
   .data, #searchBar{
     display: flex;
@@ -31,7 +36,42 @@ header {
     justify-content: end;
     gap:10px;
   }
+  .compress{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .compress:not(.expanded){
+    display: none;
+  }
 }
+.data .type_document{
+  display: flex;
+  flex: 1;
+  border: 1px solid ;
+  justify-content: space-around;
+  border-radius: 10px;
+  overflow: hidden;
+  label{
+    flex: 1;
+    height: 40px;
+    justify-content: center;
+    &:has(input:checked){
+      background-color: var(--primary-color);
+      color: white;
+    }
+    &:has(input:disabled:checked){
+      background-color: grey;
+    }
+    &:has(input:disabled){
+      background-color: lightgray;
+    }
+  }
+  &:has(input:disabled){
+    border: 1px solid darkgrey
+  }
+}
+
 .pad {
   padding: attr(data-pad px)
 }
@@ -67,7 +107,7 @@ header {
   border-radius: 8px;
   box-sizing: border-box;
 }
-.button_square:not(:disabled) {
+.button_square:enabled {
   background-color: #fff;
   box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
   color: #0f1111;
@@ -75,11 +115,11 @@ header {
   /* width: 100px; */
 }
 
-.button_square:hover:not(:disabled) {
+.button_square:hover:enabled {
   background-color: #f7fafa;
 }
 
-.button_square:focus:not(:disabled) {
+.button_square:focus:enabled   {
   border-color: #008296;
   box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
   outline: 0;
@@ -105,9 +145,10 @@ input[type=text] {
 
 input::placeholder {
     color: #9e9ea7;
+    text-transform: none;
 }
 
-input:focus[type=text], input:hover[type=text] {
+input:enabled:focus[type=text], input:enabled:hover[type=text] {
     outline: none;
     border-color: rgba(68, 34, 2, 0.4);
     background-color: #fff;
@@ -145,69 +186,255 @@ input:focus[type=text], input:hover[type=text] {
   align-items: center;
   gap: 20px;
 }
-.number_document, .phone {
+.number_document, .phone, .email {
   >input[type=text]{
     width:100%;
   }
 }
-.number_document, .header_document, .phone {
-    position: relative;
-    display: flex;
-    gap:10px;
-    align-items: center;
-    flex:1;
-    >i{
-      position: absolute;
-      left: 1rem;
-      fill: #9e9ea7;
-      width: 1rem;
-      height: 1rem;
-    }
-    button{
-        position: relative;
-        height:30px;
-        width: 30px;
-        border-radius:100%;
-        align-items: center;
-        margin: 0 auto;
-        i{
-          fill: #9e9ea7;
-        }
-    }
+.number_document, .header_document, .phone, .email, .edit-field{
+  position: relative;
+  display: flex;
+  gap:10px;
+  align-items: center;
+  flex:1;
+  >i{
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+  }
+  button{
+      position: relative;
+      height:30px;
+      width: 30px;
+      border-radius:100%;
+      align-items: center;
+      margin: 0 auto;
+      i{
+        fill: #9e9ea7;
+      }
+  }
+}
+.header_document{
+  input{
+    flex: 1;
+  }
 }
 
 /* Secction RUC + DNI */
 .section-data {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    gap: 15px;
-    overflow: hidden;
-  }
-  .section-card {
-    border-radius: 5px;
-    scrollbar-width:none;
-    .title{
-      margin-bottom:10px
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  gap: 15px;
+  overflow: hidden;
+}
+.section-card {
+  border-radius: 5px;
+  scrollbar-width:none;
+  .title{
+    margin-bottom:10px;
+    /* div{ */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    /* } */
+    gap:20px;
+    & >.title{
+      margin:0px;
+      gap:10px;
+    }
+    span{
+      font-weight:bold;
+    }
+    ngx-skeleton-loader{
+      height: 20px;
+      flex:1
     }
   }
-  .section-card > *::-webkit-scrollbar {
-    display: none;
-  }
-  .section-data .section-card{
-    flex: 1;
-  }
-  .section-data .section-card:last-child{
-    flex: 1;
-  }
+}
+.section-card > *::-webkit-scrollbar {
+  display: none;
+}
+.section-data .section-card{
+  flex: 1;
+}
+.section-data .section-card:last-child{
+  flex: 1;
+}
 
-  .dark {
-    background-color: #151c26;
-    color: white;
+.dark {
+  background-color: #151c26;
+  color: white;
+}
+.light {
+  /* background-color: rgb(227, 227, 227); */
+  background-color: #f3f3f4;
+  color: #151c26;
+  border: 1px solid #151c26;
+}
+
+
+/* Dialog Search */
+.temblor {
+  animation: shake 0.3s;
+}
+
+button.primary {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  background-color: black;
+  color: whitesmoke;
+  width: 100%;
+  outline: none;
+  &:disabled{
+      background-color: grey;
   }
-  .light {
-    /* background-color: rgb(227, 227, 227); */
-    background-color: #f3f3f4;
-    color: #151c26;
-    border: 1px solid #151c26;
+  &:focus {
+      outline: 3px solid #95acbf;
   }
+}
+button.outline {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid black;
+  font-size: 1rem;
+  color: black;
+}
+
+/* Dialog */
+dialog[open]{
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+dialog {
+  top: 50%;
+  left: 50%;
+  border: none;
+  background-color: #E9EAE4;
+  width: 450px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 30px 20px 21px;
+  border-radius: 10px;
+  position: relative;
+  transform: translate(-50%, -50%);
+  div {
+      text-align: center;
+      &.footer{
+          margin-top:10px;
+          button {
+              cursor: pointer;
+              width: auto;
+          }
+          display: flex;
+          justify-content: end;
+          gap:20px;
+      }
+  }
+  &:has(div .loader){
+      padding: 0px;
+      background: none;
+      height: auto;
+      justify-content: center;
+  }
+  .cross {
+      position:absolute;
+      top: 20px;
+      right: 20px;
+      button {
+          outline:none;
+          border:none;
+          background:none;
+          cursor: pointer
+      }
+  }
+}
+/* Specific Dialogs */
+dialog:has(.delete-customer) div  {
+  text-align: start;
+}
+dialog:has(.edit-form) div  {
+  text-align: start;
+}
+/* Dialog Background */
+dialog::backdrop {
+  background-color: black;
+  opacity: .5;
+}
+/* spinner loader */
+.loader {
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite;
+  background: none;
+}
+.loader::before , .loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 5px solid #FFF;
+  animation: prixClipFix 2s linear infinite ;
+}
+.loader::after{
+  transform: rotate3d(90, 90, 0, 180deg );
+  border-color: #FF3D00;
+}
+/* Loader animation */
+@keyframes rotate {
+  0%   {transform: rotate(0deg)}
+  100%   {transform: rotate(360deg)}
+}
+
+@keyframes prixClipFix {
+    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+    25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+    75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+    100%  {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+}
+
+/* Edit Dialog */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+.edit-form > div:has(.edit-field) {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+div:has(.edit-field label), div:has(.edit-field p){
+  line-height: 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.edit-field input[type="text"] {
+  height: 36px;
+  flex:1
+}
+.edit-field input[type="text"]:disabled {
+  background-color: lightgrey;
+  color: grey;
+}
+.error {
+  color: #d32f2f;
+  font-size: 0.9rem;
+}
+/* Delete Dialog */
+.delete-customer{
+  display: flex;
+  flex-direction: column;
+}
