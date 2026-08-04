@@ -116,7 +116,33 @@
     background-color: var(--neutral-2-color);
     transition: background .4s;
 }
-.normal{
+.normal, .customer:not(.selectCard) {
     background-color: white;
     transition: background .4s;
+}
+.hidden {
+    display: none;
+}
+
+.customer {
+    border:none;
+    height: 90px;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    div.actions{
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 0;
+        button{
+            display: block;
+            width: 70px;
+            height: 30px;
+            border:none;
+            outline: 1px solid var(--neutral-2-color);
+            outline-offset: 0px; 
+        }
+
+    }
 }
