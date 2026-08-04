@@ -1,49 +1,44 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, timeout, tap, throwError } from 'rxjs';
-import { Customer, CustomerForm } from '../models/customer.model';
+import { HttpClient } from '@angular/common/http';
+import { catchError, timeout, tap, throwError, Observable, from, concatMap, of, map, shareReplay } from 'rxjs';
+import { Customer, CustomerForm, ReniecResponse, SunatResponse } from '../models/customer.model';
+import { CachingService } from './caching.service';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
   private http = inject(HttpClient);
-  private headers = new HttpHeaders()
-  private apiUrl = import.meta.env.NG_APP_CUSTOMERS
+  private cacheService = inject(CachingService);
+  private apiUrl = import.meta.env.NG_APP_CUSTOMERS + "/customers/"
 
   // Estado reactivo con signals
   private _customers = signal<Customer[]>([]);
-  private _Cdni = signal<Customer[]>([]);
-  private _Cruc = signal<Customer[]>([]);
-  private _loading = signal(false);
-  private _error = signal<string | null>(null);
+  private _Cdni = signal<Customer[]|[]>([]);
+  private _Cruc = signal<Customer[]|[]>([]);
+  _message = signal<{type:string, data:{}} | null>(null);
 
   // Signals públicos de solo lectura
   customers = this._customers.asReadonly();
   dni = this._Cdni.asReadonly();
   ruc = this._Cruc.asReadonly();
-  loading = this._loading.asReadonly();
-  error = this._error.asReadonly();
+  message = this._message.asReadonly()
   total = computed(() => this._customers().length);
 
   getAll() {
-    this._loading.set(true);
-    this._error.set(null);
 
     return this.http.get<Customer[]>(this.apiUrl).pipe(
       timeout(8000),
       tap((data) => {
         this._customers.set(data);
-        this._loading.set(false);
       }),
       catchError((err) => {
-        this._loading.set(false);
         const msg =
           err.name === 'TimeoutError'
             ? 'La solicitud tardó demasiado.'
             : err.status === 0
               ? 'Sin conexión al servidor.'
               : `Error ${err.status}`;
-        this._error.set(msg);
-        return throwError(() => err);
+
+        return throwError(() => msg);
       })
     );
   }
@@ -58,8 +53,15 @@ export class CustomerService {
     );
   }
 
-  getType(id: string) {
-    return this.http.get<Customer[]>(`${this.apiUrl}/name/${id}`).pipe(
+  public getType(id: string, reset: boolean= false):Observable<[Customer]> {
+    const url = `${this.apiUrl}name/${id}`
+    const cached = this.cacheService.get(url);
+
+    if (cached && !reset) {
+      return cached
+    }
+
+    const request$ = this.http.get<[Customer]>(url).pipe(
       timeout(8000),
       tap((data) => {
         if(id == "dni"){
@@ -68,42 +70,97 @@ export class CustomerService {
         else {
           this._Cruc.set(data);
         }
-        this._loading.set(false);
       }),
-      catchError((err) => throwError(() => err))
-    );
+      catchError((err) => throwError(() => err)),
+      shareReplay(1)
+    )
+    this.cacheService.set(url, request$)
+
+    return request$
+  }
+
+  getTypes(): Observable<{tipo:string,data:[CustomerForm]}|{tipo:string,data:null}> {
+    const tipos = ["ruc", "dni"]
+
+    return from(tipos).pipe(
+      concatMap((tipo:string) => this.getType(tipo).pipe(
+        map(response => ({tipo,data:response})),
+        catchError(err =>{
+          console.log(`Error consultando ${tipo}:`, err)
+          return of({tipo,data:null})
+        })
+      )), 
+    )
   }
 
   create(payload: CustomerForm) {
-    const url = `${this.apiUrl}/customers/`
-    return this.http.post<Customer>(url, payload).pipe(
+
+    const url = this.apiUrl
+    return this.http.post<CustomerForm>(url, payload).pipe(
       timeout(8000),
       tap((newCustomer) => {
-        this._customers.update((list) => [...list, newCustomer]);
+        if(payload.docType=="dni"){
+          this._Cdni.update(lista =>
+            lista.map(item => item).concat(payload as Customer)
+          );
+        }
+        else{
+          this._Cruc.update((list) =>
+            list.map(item => item).concat(payload as Customer)
+          );
+        }
       }),
       catchError((err) => throwError(() => err))
     );
   }
 
-  update(id: number, payload: CustomerForm) {
-    return this.http.put<Customer>(`${this.apiUrl}/${id}`, payload).pipe(
-      timeout(8000),
-      tap((updated) => {
-        this._customers.update((list) =>
-          list.map((c) => (c.id === id ? updated : c))
-        );
-      }),
-      catchError((err) => throwError(() => err))
-    );
-  }
-
-  delete(id: number) {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+  update(raw: Customer, payload:Partial<CustomerForm>) {
+    const id = raw.id
+    return this.http.patch<Customer>(`${this.apiUrl}${id}`, payload).pipe(
       timeout(8000),
       tap(() => {
-        this._customers.update((list) => list.filter((c) => c.id !== id));
+
+        if(raw.docType=="dni"){
+          this._Cdni.update((lista) =>
+            lista.map((cliente) => (cliente.id === id ? { ...cliente, ...payload }: cliente))
+          );
+        }
+        else{
+          this._Cruc.update((list) =>
+            list.map((c) => (c.id === id ? { ...c, ...payload }: c))
+          );
+        }
+        
       }),
       catchError((err) => throwError(() => err))
     );
+  }
+
+  delete(raw: Customer) {
+    const id = raw.id
+    return this.http.delete<void>(`${this.apiUrl}${id}`).pipe(
+      timeout(8000),
+      tap(() => {
+        if(raw.docType=="dni"){
+          this._Cdni.update((lista) =>
+            lista.filter((cliente) => (cliente.id !== id ))
+          );
+        }
+        else{
+          this._Cruc.update((list) =>
+            list.filter((cliente) => (cliente.id !== id))
+          );
+        }
+      }),
+      catchError((err) => throwError(() => err))
+    );
+  }
+
+  options(value:{type:string, data:{}}){
+    this._message.set(value)
+  }
+
+  refreshType(url:string): void {
+    this.cacheService.clear(url);
   }
 }
