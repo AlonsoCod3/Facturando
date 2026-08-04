@@ -2,10 +2,7 @@
     <!-- Bar Search Client-->
     <header>
         <div id="searchBar" [formGroup]="searchForm">
-            <div class="name">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input class="nameForm" type="text" placeholder="Buscar Cliente" formControlName="name">
-            </div>
+            <div><p>Buscar cliente por:</p></div>
             <div class="documents">
                 <label for="document_dni">
                     <input type="radio" name="search_type" id="document_dni" value="dni" formControlName="search_type">
@@ -18,72 +15,291 @@
             </div>
             <div class="header_document">
                 <i class="fa fa-hashtag"></i>
-                <input type="text" placeholder="Número de documento" formControlName="numDoc" [maxlength]="s_type?.value == 'dni' ? 8 : 11"/>
-                <button [disabled]="!searchForm.valid || !searchForm.dirty" (click)="searchDoc()">
+                <input type="text" placeholder="Número de documento" formControlName="docNumber" [maxlength]="s_type?.value == 'dni' ? 8 : 11"/>
+                <button [disabled]="!searchForm.valid" (click)="searchDoc()">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
         </div>
     </header>
-    <!--  Result of Client-->
-
-    <div>
-        <div #resultInput [hidden]="!this.result"> 
-            <span>Nombre: </span> {{resultado}}
-        </div>
-    </div>
 
     <!-- Form Create Client-->
     <header class="light pad" data-pad="20" [formGroup]="createForm">
         <div class="title">
             <i class="fa fa-address-card"></i>
             Crear nuevo cliente
+            <button (click)="toogleCrear()">
+                @if(isOpen){
+                    <i class="fa fa-arrow-up"></i>
+                }
+                
+                @else{
+                    <i class="fa fa-arrow-down"></i>
+                }
+            </button>
         </div>
-        <div class="data">
-            <div id="createName">
-                <i class="fa-solid fa-user"></i>
-                <input class="nameForm" type="text" placeholder="Nombre de cliente" formControlName="name">
+        <div class="compress" [ngClass]="{ expanded: isOpen }">
+            <div class="data">
+                <div id="createName">
+                    <i class="fa-solid fa-user"></i>
+                    <input class="nameForm" type="text" [placeholder]="c_type?.value === 'dni' ? 'Nombre de la persona' : 'Nombre de la empresa'" formControlName="name">
+                </div>
             </div>
-        </div>
-        <div class="data ">
-            <div class="type_document">
-                <label for="create_dni">
-                    <input type="radio" name="type" id="create_dni" value="dni" formControlName="type">
-                        <p>DNI</p>
-                </label>
-                <label for="create_ruc">
-                    <input type="radio" name="type" id="create_ruc" value="ruc" formControlName="type">
-                        <p>RUC</p>
-                </label>
+            <div class="data">
+                <div class="type_document">
+                    <label for="create_dni">
+                        <input hidden type="radio"  id="create_dni" value="dni" formControlName="docType">
+                            <p>DNI</p>
+                    </label>
+                    <label for="create_ruc">
+                        <input hidden type="radio"  id="create_ruc" value="ruc" formControlName="docType">
+                            <p>RUC</p>
+                    </label>
+                </div>
             </div>
-            <div class="number_document">
-                <i class="fa fa-hashtag"></i>
-                <input type="text" placeholder="Número de documento" formControlName="numDoc" [maxlength]="c_type?.value == 'dni' ? 8 : 11"/>
-            </div>
-            <div class="phone">
-                <i class="fa fa-phone"></i>
-                <input type="text" placeholder="Número de Celular (Opcional)" formControlName="phoneNumber" [maxlength]="9"/>
-            </div>
-        </div>
+            <!-- <div class="data"> -->
+                <div class="number_document">
+                    <i class="fa fa-hashtag"></i>
+                    <input type="text" placeholder="Número de documento" formControlName="docNumber" [maxlength]="c_type?.value == 'dni' ? 8 : 11"/>
+                </div>
+                <div class="phone">
+                    <i class="fa fa-phone"></i>
+                    <input type="text" placeholder="Número de Celular (Opcional)" formControlName="phoneNumber" [maxlength]="9"/>
+                </div>
+                <div class="email">
+                    <i class="fa fa-envelope"></i>
+                    <input type="text" placeholder="Correo (Opcional)" />
+                </div>
+            <!-- </div> -->
             <div class="actionsButton">
                 <button class="button_square" [disabled]="!createForm.valid || !createForm.dirty" (click)="createClient()">Guardar Cliente</button>
             </div>
+        </div>
     </header>
 
     <section class="section-data">
         <div class="section-card">
-            <div class="title"><h1>RUC</h1></div>
+            <div class="title">
+                <div class="title">
+                    <h1>RUC</h1>
+                    <i class="fa fa-refresh" (click)="reloadCustomerType('ruc')"></i>
+                </div>
+                @if(loader_ruc.load){
+                    <ngx-skeleton-loader count="1" />
+                }
+                @else if(!loader_ruc.load && !loader_ruc.error) {
+                    <span> {{list_ruc.length}} Items</span>
+                }
+            </div>
             <app-grid-list class="dark"
             [data]="list_ruc"
-            [customer]="true"
+            [customer]="true"   
+            [loader] = "loader_ruc"
+            (refresh) = "reloadCustomerType('ruc')"
             ></app-grid-list>
         </div>
         <div class="section-card">
-            <div class="title"><h1>DNI</h1></div>
+            <div class="title">
+                <div class="title">
+                    <h1>DNI</h1>
+                    <i class="fa fa-refresh" (click)="reloadCustomerType('dni')"></i>
+                </div>
+                @if(loader_dni.load){
+                    <ngx-skeleton-loader count="1" />
+                }
+                @else if(!loader_dni.load && !loader_dni.error) {
+                    <span> {{list_dni.length}} Items</span>
+                }
+            </div>
             <app-grid-list
             [data]="list_dni"
             [customer]="true"
+            [loader] = "loader_dni"
+            (refresh) = "reloadCustomerType('dni')"
             ></app-grid-list>
         </div>
     </section>
 </div>
+
+<!-- Dialog: Loadiing -->
+<dialog closedby="none" #loading>
+    <div>
+        <span class="loader"></span>
+    </div>
+</dialog>
+
+<!-- Dialog: Resultado de búsqueda -->
+<dialog closedby="none" #resultInput>
+    @if (lastSearchResult) {
+        <form method="dialog" class="cross">
+            <button type="button" (click)="cancelSearch()"><i class="fa fa-x"></i></button>
+        </form>
+        <h3>
+            {{ (lastSearchResult.docType === 'dni') ? 'Persona encontrada' : 'Empresa encontrada' }}
+        </h3>
+        <span><b>Nombre:</b> {{resultado}}</span>
+        <span><b>Documento:</b> {{lastSearchResult.docType === 'dni' ? 'DNI' : 'RUC'}} {{lastSearchResult.docNumber}}</span>
+        <div class="footer">
+            <form method="dialog">
+                <button type="button" class="outline" (click)="cancelSearch()">
+                    Cerrar
+                </button>
+            </form>
+            <button class="primary" (click)="agregarCliente()">
+                Añadir a lista de clientes
+            </button>
+        </div>
+    }
+    @else {
+        <form method="dialog" class="cross">
+            <button><i class="fa fa-x"></i></button>
+        </form>
+        <h3>
+            No se encontró información.
+        </h3>
+        <p>¿Quieres añadir la información manualmente?</p>
+        <span class="caption">
+            La información relacionada a este número de documento será guardada como un <b>nuevo cliente</b>.
+        </span>
+        <div class="footer">
+            <form method="dialog">
+                <button class="outline">
+                    Cancelar
+                </button>
+            </form>
+            <button class="primary" (click)="manualCreate(); inputResult.nativeElement.close()">
+                Crear nuevo cliente
+            </button>
+        </div>
+    }
+</dialog>
+
+<!-- Dialog: añadido correctamente -->
+<dialog closedby="none" #addDialog>
+    <form method="dialog" class="cross">
+        <button><i class="fa fa-x"></i></button>
+    </form>
+    <h3>Cliente añadido</h3>
+    <div class="delete-customer" >
+        <div class="">
+            {{resultado}}
+        </div>
+    </div>
+    <div class="footer">
+        <form method="dialog">
+            <button class="outline">Aceptar</button>
+        </form>
+        <button class="primary">Crear Boleta/Factura</button>
+    </div>
+</dialog>
+ 
+<!-- Dialog: error cualquiera  -->
+<dialog closedby="none" #errorDialog>
+    <form method="dialog" class="cross">
+        <button><i class="fa fa-x"></i></button>
+    </form>
+    <h3>Error</h3>
+    <div class="delete-customer" >
+        <p class="error">{{ searchError }}</p>
+    </div>
+    <div class="footer">
+        <form method="dialog">
+            <button class="outline">Aceptar</button>
+        </form>
+    </div>
+</dialog>
+
+<!-- Dialog: añadido correctamente -->
+<dialog closedby="none" #anyDialog>
+    <form method="dialog" class="cross">
+        <button><i class="fa fa-x"></i></button>
+    </form>
+    <!-- <h3>Cliente añadido</h3> -->
+    <div class="delete-customer" >
+        <div class="">
+            {{resultado}}
+        </div>
+    </div>
+    <div class="footer">
+        <form method="dialog">
+            <button class="outline">Aceptar</button>
+        </form>
+    </div>
+</dialog>
+
+<!-- Dialog: Editar cliente -->
+<dialog closedby="none" #editDialog>
+    <form method="dialog" class="cross">
+        <button><i class="fa fa-x"></i></button>
+    </form>
+    <h3>Editar cliente</h3>
+    @if(editingCustomer && isEditOpen){
+        <div class="edit-form" [formGroup]="editForm">
+            <div>
+                <label for="name_edit">Nombre</label>
+                <div class="edit-field">
+                    <i class="fa fa-user"></i>
+                    <input type="text" id="name_edit" formControlName="name" />
+                </div>
+            </div>
+            <div class="edit-field data">
+                <p>Tipo documento</p>
+                <div class="type_document">
+                    <label for="edit_dni">
+                        <input hidden type="radio" name="docType" id="edit_dni" value="dni" formControlName="docType">
+                        <p>DNI</p>
+                    </label>
+                    <label for="edit_ruc">
+                        <input hidden type="radio" name="docType" id="edit_ruc" value="ruc" formControlName="docType">
+                        <p>RUC</p>
+                    </label>
+                </div>
+            </div>
+            <div>
+                <label for="docType_edit">N° Documento</label>
+                <div class="edit-field">
+                    <input id="docType_edit" type="text" formControlName="docNumber"/>
+                </div>
+            </div>
+            <div>
+                <label for="phone_edit">Teléfono (Opcional)</label>
+                <div class="edit-field">
+                    <input id="phone_edit" type="text" formControlName="phoneNumber" />
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <form method="dialog">
+                <button class="outline">Cancelar</button>
+            </form>
+            <button class="primary" [disabled]="!editForm.valid" (click)="saveEdit()" >Guardar cambios</button>
+        </div>
+    }
+</dialog>
+
+<!-- Dialog: DELETE cliente -->
+<dialog closedby="none" #deleDialog>
+    <form method="dialog" class="cross">
+        <button><i class="fa fa-x"></i></button>
+    </form>
+    <h3>¿Seguro que quiers eliminar al cliente?</h3>
+    <div class="delete-customer" >
+        @if(delCustomer){
+            <div class="">
+                Nombre: <b>{{ delCustomer.name }}</b>
+            </div>
+            <div>
+                Documento: <b> {{delCustomer.docNumber}} </b>
+            </div>
+        }
+        <caption>
+            <span>El cliente sera removido de la base de datos pero se conservaran los tickets hechos con su información</span>
+        </caption>
+    </div>
+    <div class="footer">
+        <form method="dialog">
+            <button class="outline">Cancelar</button>
+        </form>
+        <button class="primary" (click)="deleteCustomer(delCustomer)">Eliminar registro</button>
+    </div>
+</dialog>

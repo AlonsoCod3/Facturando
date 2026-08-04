@@ -111,31 +111,31 @@
     </div>
 }
 @else if(typo == "customer"){
-    <div class="normal" [ngClass]="version? 'list':'grid'">
+    <div class="customer" [ngClass]="version? 'list':'grid'" [class.selectCard]="customerOptions" (click)="clickOptions(optionsCustomes,tData)">
         <div class="main">
-            <!-- <section class="title">B004</section> -->
             <section class="content">
+                <input type="checkbox" #optionsCustomes hidden>
              <table>
                 <tr>
-                    <td>
-                        <input type="checkbox" >
-                    </td>
                     <td>
                         <div>
                             <span>{{tData["name"]}}</span>
                         </div>
                     </td>
-                    <td>
+                </tr>
+                <tr>
+                    <td >
                         <div>
                             <span>{{tData["docNumber"]}}</span>
                         </div>
                     </td>
-                    <td>
-                        <button class="fa fa-download"></button>
-                        <button class="fa fa-trash"></button>
-                    </td>
                 </tr>
              </table>
+             <div class="actions" [class.hidden]="!customerOptions">
+                <button class="fa fa-pen-to-square" (click)="clickEdit()"></button>
+                <button class="fa fa-trash" (click)="clickDelete()"></button>
+                <button class="fa fa-add" (click)="clickInvoice()"></button>
+             </div>
             </section>
         </div>
     </div>
@@ -181,6 +181,13 @@
              </table>
             </section>
         </div>
+    </div>
+}
+@else if(typo == "customer_load"){
+    <div>
+            <ngx-skeleton-loader count="1" [theme]="{
+                'background-color': '#d9d3c7'
+            }"/>
     </div>
 }
 @else {

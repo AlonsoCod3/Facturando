@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal} from '@angular/core';
-import { Observable, catchError, map, tap, throwError } from 'rxjs';
+import { Observable, catchError, shareReplay, map, throwError } from 'rxjs';
 import { CachingService } from './caching.service';
+import { ReniecResponse, SunatResponse } from '../models/customer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,53 +17,63 @@ export class ClientService {
 
   constructor() { }
 
-  public getDni(value:string):Observable<any> {
+  public getDni(value:string): Observable<ReniecResponse> {
     const url = `${this.path}/reniec/${value}`
     const cachedResponse = this.cacheService.get(url);
-    if (cachedResponse){
-      return cachedResponse
-    }else {
-      return this.http.get(url)
+
+    if (cachedResponse) return cachedResponse
+
+    const reque = this.http.get<ReniecResponse>(url)
       .pipe(
-        tap(response => this.cacheService.set(url,response)),
-        map(response => response),
-        catchError(requestError=>throwError(requestError))
+        map(response =>response),
+        catchError(requestError => {
+          this.cacheService.clear(url)
+          return throwError(() => requestError)
+        }),
+        shareReplay(1)
       )
-    }
+    this.cacheService.set(url, reque)
+    return reque
   }
 
-  public getRuc(value:string):Observable<any> {
+  public getRuc(value:string): Observable<SunatResponse> {
     const url = `${this.path}/sunat/${value}`
-    // ruc?numero=20601030013
-    return this.http.get(url,{})
+    const cache = this.cacheService.get(url)
+
+    if(cache) return cache
+
+    const reque = this.http.get<SunatResponse>(url)
     .pipe(
       map(response => response),
-      catchError(requestError => throwError(requestError))
+      catchError(requestError => {
+        this.cacheService.clear(url)
+        return throwError(() => requestError)
+      }), shareReplay(1)
     )
+    this.cacheService.set(url, reque)
+    return reque
   }
 
-  public getFullRuc(value:string):Observable<any> {
-    const url = `${this.path}/full/sunat/${value}`
-    // ruc?numero=20601030013
-    return this.http.get(url)
-    .pipe(
-      map(response => response),
-      catchError(requestError => throwError(requestError))
-    )
-  }
+  // public getFullRuc(value:string): Observable<SunatResponse> {
+  //   const url = `${this.path}/full/sunat/${value}`
+  //   return this.http.get<SunatResponse>(url)
+  //   .pipe(
+  //     catchError(requestError => throwError(() => requestError))
+  //   )
+  // }
 
-  getData() {
-    if (this.dataCache()) {
-      return new Observable(observer => {
-        observer.next(this.dataCache()!);
-        observer.complete();
-      });
-    }
+  // getData() {
+  //   if (this.dataCache()) {
+  //     return new Observable(observer => {
+  //       observer.next(this.dataCache()!);
+  //       observer.complete();
+  //     });
+  //   }
 
-    return this.http.get<any[]>(this.path).pipe(
-      tap(posts => this.dataCache.set(posts))
-    );
-  }
+  //   return this.http.get<any[]>(this.path).pipe(
+  //     tap(posts => this.dataCache.set(posts))
+  //   );
+  // }
 
   setCache(data: any) {
     this.dataCache.set(data);

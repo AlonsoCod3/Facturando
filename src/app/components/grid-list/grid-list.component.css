@@ -64,6 +64,28 @@ article {
     .tabl {
         overflow: hidden;
         border-radius: 10px;
+        &.customer{
+            border-radius: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            .error{
+                display: flex;
+                flex:1;
+                flex-direction: column;
+                gap:20px;
+                align-items: center;
+                button{
+                    width: 50px;
+                    height: 50px;
+                    font-size:30px;
+                    padding: 0;
+                }
+            }
+        }
+    }
+    &:has(.error){
+        justify-content: space-around;
     }
     .list-table{
         width: 100%;
