@@ -1,6 +1,7 @@
 {
   "name": "facturando-app",
   "version": "1",
+  "packageManager": "pnpm@11.17.0",
   "private": true,
   "scripts": {
     "ng": "ng",
@@ -27,6 +28,6 @@
     "@angular/compiler-cli": "^19.0.6",
     "@ngx-env/builder": "^19.0.5",
     "@types/node": "^24.4.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.8.3"
   }
 }
