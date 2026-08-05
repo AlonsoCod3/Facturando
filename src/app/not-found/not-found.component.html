@@ -1,4 +1,4 @@
-<p>404</p>
+<!-- <p>404</p> -->
 @if(errorType() === "tiemout"){
     <p>La solicitud tardó demasiado. Intenta de nuevo</p>
 }
@@ -8,3 +8,66 @@
 @if(errorType() === "http"){
     <p>Error HTTP {{errorCode()}}</p>
 }
+
+<main class="error-screen">
+    <div class="error-card">
+      <svg
+        class="receipt"
+        viewBox="0 0 220 300"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          class="receipt__body"
+          d="M20 8
+             H200
+             V270
+             L188 282 L176 270 L164 282 L152 270 L140 282 L128 270
+             L116 282 L104 270 L92 282 L80 270 L68 282 L56 270 L44 282 L32 270
+             L20 282
+             Z"
+        />
+        <line class="receipt__rule" x1="40" y1="46" x2="180" y2="46" />
+        <line class="receipt__line" x1="40" y1="76" x2="180" y2="76" />
+        <line class="receipt__line" x1="40" y1="94" x2="150" y2="94" />
+        <line class="receipt__line" x1="40" y1="122" x2="180" y2="122" />
+        <line class="receipt__line" x1="40" y1="140" x2="130" y2="140" />
+        <line class="receipt__line" x1="40" y1="168" x2="180" y2="168" />
+        <line class="receipt__line" x1="40" y1="186" x2="160" y2="186" />
+        <line class="receipt__rule" x1="40" y1="216" x2="180" y2="216" />
+        <line class="receipt__line receipt__line--total" x1="40" y1="238" x2="180" y2="238" />
+  
+        <g class="stamp" transform="translate(110 140) rotate(-16)">
+          <circle class="stamp__ring" cx="0" cy="0" r="52" />
+          <circle class="stamp__ring stamp__ring--inner" cx="0" cy="0" r="44" />
+          <text class="stamp__text" x="0" y="-6" text-anchor="middle">SIN</text>
+          <text class="stamp__text" x="0" y="18" text-anchor="middle">RESPUESTA</text>
+        </g>
+      </svg>
+  
+      <p class="eyebrow">Conexión con el servicio</p>
+      <h1>No pudimos confirmar tus datos</h1>
+      <p class="description">
+        Uno de los servicios que necesita esta pantalla no respondió a tiempo.
+        Tus clientes, productos y facturas siguen guardados sin cambios —
+        solo falta reconectar para continuar.
+      </p>
+  
+      <button
+        type="button"
+        class="retry-button"
+        [disabled]="isReloading()"
+        (click)="reintentar()"
+      >
+        @if (isReloading()) {
+          Reconectando…
+        } @else {
+          Reintentar conexión
+        }
+      </button>
+  
+      <p class="return-path">
+        Te llevará de vuelta a <code>{{ returnUrl() }}</code>
+      </p>
+    </div>
+  </main>
