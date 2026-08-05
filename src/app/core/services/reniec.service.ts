@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal} from '@angular/core';
-import { Observable, catchError, shareReplay, map, throwError } from 'rxjs';
+import { Observable, catchError, shareReplay, timer, of, throwError } from 'rxjs';
+import { retry, map } from 'rxjs/operators';
 import { CachingService } from './caching.service';
+import { cacheWithTTL } from '../utils/cache-with-ttl.util';
 import { ReniecResponse, SunatResponse } from '../models/customer.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClientService {
+export class ReniecService {
   private path = import.meta.env.NG_APP_URL
 
   private http = inject(HttpClient)
@@ -54,32 +56,34 @@ export class ClientService {
     return reque
   }
 
-  // public getFullRuc(value:string): Observable<SunatResponse> {
-  //   const url = `${this.path}/full/sunat/${value}`
-  //   return this.http.get<SunatResponse>(url)
-  //   .pipe(
-  //     catchError(requestError => throwError(() => requestError))
-  //   )
-  // }
+  private API_RENIEC = this.path + "/verify"
+  
+  private checkCache = cacheWithTTL(
+    () => this.http.get(this.API_RENIEC)
+    .pipe(
+      map((response:any)=> {
+        // si la API responde
+        if(response.status){
+          // console.log("Estado de API reniec:", response.status)
+          return true
+        }
+        throw new Error('API aún no está lista')
+      }),
+      retry({
+        count: 10,
+        delay: (error, retryCount) => timer(3000),
+        resetOnSuccess: true,
+      }), catchError((error)=>{
+        // console.log('Se agotaron los reintentos, la API no respondió a tiempo');
+        return of(false);
+      }),
 
-  // getData() {
-  //   if (this.dataCache()) {
-  //     return new Observable(observer => {
-  //       observer.next(this.dataCache()!);
-  //       observer.complete();
-  //     });
-  //   }
+    ),
+    300000
+  )
 
-  //   return this.http.get<any[]>(this.path).pipe(
-  //     tap(posts => this.dataCache.set(posts))
-  //   );
-  // }
-
-  setCache(data: any) {
-    this.dataCache.set(data);
+  check(): Observable<boolean> {
+    return this.checkCache.get();
   }
 
-  clearCache() {
-    this.dataCache.set(null);
-  }
 }
