@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { isNotLoggedGuard } from './app/guards/is-not-logged.guard';
 import { clientCheckerGuard } from './app/guards/client.guard';
 import { productCheckerGuard } from './app/guards/product.guard';
+import { appInitGuard } from './app/guards/app-init.guard';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {
     // Con cuenta
     path: '',
+    canActivate: [appInitGuard],
     loadComponent: () =>
       import('./app/dashboard/dashboard.component').then(
         (m) => m.DashboardComponent
@@ -57,7 +59,7 @@ const routes: Routes = [
       },
       {
         path: 'clients',
-        canActivate: [clientCheckerGuard],
+        canActivate: [productCheckerGuard],
         children: [
           { path: "", loadComponent: () => import('./app/pages/clients/clients.component').then( (m) => m.ClientsComponent ) },
         ]

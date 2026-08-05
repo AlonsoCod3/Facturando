@@ -6,15 +6,16 @@ import routes from './routes';
 import { LoaderService } from './app/core/services/loader.service';
 import { LoaderComponent } from './app/components/loader/loader.component';
 import { ApiService } from './app/core/services/api.service';
+import { BootLoaderComponent } from './app/components/boot-loader/boot-loader.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterModule, LoaderComponent],
+  imports: [RouterModule, LoaderComponent, BootLoaderComponent],
   template: `
   @if (loader.initialLoading()) {
-  <app-loader /> <!-- loader de pantalla completa, solo la primera vez -->
+  <app-boot-loader />
 } @else if (loader.loading()) {
-  <app-loader /> <!-- loader normal de navegación entre rutas -->
+  <app-loader />
 }
   <router-outlet />
   `,
@@ -26,13 +27,13 @@ export class App {
   ) {
     this.apisInit.initializeApp().subscribe({
       next: (results) => {
-        console.log('APIs iniciales cargadas');
       },
       error: (err) => {
-        console.error('Error inicializando la app:', err);
       },
       complete: () => {
-        this.loader.finishInitialLoad();
+        setTimeout(() =>{
+          this.loader.finishInitialLoad();
+        }, 1000)
       }
     })
   }
