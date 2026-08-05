@@ -1,0 +1,30 @@
+<div class="boot-screen">
+    <div class="printer">
+      <div class="printer__slot"></div>
+    </div>
+  
+    <div class="receipt">
+      <p class="receipt__heading">Iniciando sesión</p>
+      <div class="receipt__rule"></div>
+  
+      <ul class="receipt__log">
+        @for (entry of loader.bootLog(); track entry.id) {
+          <li class="log-line" [class.log-line--done]="entry.status === 'done'" [class.log-line--error]="entry.status === 'error'">
+            <span class="log-line__marker">
+              @if (entry.status === 'pending') {
+                <span class="dot"></span>
+              } @else if (entry.status === 'done') {
+                &#10003;
+              } @else {
+                &#215;
+              }
+            </span>
+            <span class="log-line__label">{{ entry.label }}</span>
+          </li>
+        }
+      </ul>
+  
+      <div class="receipt__rule"></div>
+      <p class="receipt__footer">Facturando &middot; preparando tu espacio</p>
+    </div>
+  </div>
