@@ -126,9 +126,12 @@ export class NewProductComponent {
         this.productForm.reset()
       },
       error => {
-        this.loader = false
-        console.log(error)
-        console.log(this.responseCreated)
+        // setTimeout(() => {
+          
+        //   this.loader = false
+        //   console.log(error)
+        //   console.log(this.responseCreated)
+        // }, 5000);
       } 
     )
   }

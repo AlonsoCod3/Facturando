@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, inject, OnInit, effect, AfterViewInit } from '@angular/core';
 import { GridListComponent } from "../../components/grid-list/grid-list.component";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ClientService } from '../../core/services/client.service';
+import { ReniecService } from '../../core/services/reniec.service';
 import { CustomerService } from '../../core/services/customer.service';
 import { JsonPipe, NgClass } from '@angular/common';
 import { Customer, CustomerForm, CustomerSearchResult, ReniecResponse, SunatResponse } from '../../core/models/customer.model';
@@ -37,7 +37,7 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   @ViewChild("loading") loadDialog!: ElementRef
   @ViewChild("anyDialog") anyResponse!: ElementRef
 
-  private clientService = inject(ClientService)
+  private reniecService = inject(ReniecService)
   private customerService = inject(CustomerService)
   private scrollLock = inject(ScrollLockService);
 
@@ -75,8 +75,8 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   list_ruc:CustomerForm[] = []
 
   metodos: Record<'dni' | 'ruc', (valor: string) => Observable<any>> = {
-    dni: (valor: string) => this.clientService.getDni(valor),
-    ruc: (valor: string) => this.clientService.getRuc(valor)
+    dni: (valor: string) => this.reniecService.getDni(valor),
+    ruc: (valor: string) => this.reniecService.getRuc(valor)
   };
 
   constructor() {
@@ -485,7 +485,7 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   }
 
   reloadCustomerType(tipo:any){
-    switch (tipo) {
+switch (tipo) {
       case "ruc":
         this.loader_ruc.load = true
         this.loader_ruc.error = false

@@ -1,8 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ClientService } from '../../../core/services/client.service';
+import { ReniecService } from '../../../core/services/reniec.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
+import { ReniecResponse } from '../../../core/models/customer.model';
 
 @Component({
   selector: 'app-new',
@@ -36,7 +37,7 @@ export class NewComponent {
   activarTemblor = false;
 
   constructor(
-    private clientService:ClientService
+    private reniecService:ReniecService
   ){
     this.createFormGroup()
   }
@@ -155,9 +156,9 @@ export class NewComponent {
   }
 
   private searchData(value:string) {
-    this.clientService.getDni(value)
+    this.reniecService.getDni(value)
     .subscribe(
-      (x)=> {
+      (x: ReniecResponse) => {
         console.log(x)
         this.name.nativeElement.value = `${x.first_last_name} ${x.second_last_name}, ${x.first_name}`
       }
