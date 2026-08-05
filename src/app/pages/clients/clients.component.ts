@@ -485,12 +485,12 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   }
 
   reloadCustomerType(tipo:any){
-    this.loader_ruc.load = this.loader_dni.load = true
-    this.loader_ruc.error = this.loader_dni.error = false
-    this.loader_ruc.message = this.loader_dni.message = false
-    
     switch (tipo) {
       case "ruc":
+        this.loader_ruc.load = true
+        this.loader_ruc.error = false
+        this.loader_ruc.message = false
+
         this.customerService.getType(tipo, true).subscribe({
           next:(value)=>{
             this.list_ruc = value
@@ -509,6 +509,10 @@ export class ClientsComponent implements OnInit, AfterViewInit {
         break;
       
       case "dni":
+        this.loader_dni.load = true
+        this.loader_dni.error = false
+        this.loader_dni.message = false
+
         this.customerService.getType(tipo, true).subscribe({
           next:(value)=>{
             this.list_dni = value
