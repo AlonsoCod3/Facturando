@@ -3,6 +3,7 @@ import { inject } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { LoaderService } from '../core/services/loader.service';
 import { ProductService } from '../core/services/product.service';
+import { redirectOnGuardFailure } from '../core/utils/redirect-on-failure.util';
 
 
 
@@ -12,7 +13,7 @@ export const productCheckerGuard: CanActivateFn = (route, state) => {
 
   loaderService.show();
 
-  return productChecker.check().pipe(
+  return redirectOnGuardFailure(productChecker.check(), state).pipe(
     finalize(() => loaderService.hide())
   )
 };
