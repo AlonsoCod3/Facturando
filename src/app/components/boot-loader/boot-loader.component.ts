@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, afterNextRender, inject } from '@angular/core';
 import { LoaderService } from '../../core/services/loader.service';
 
 @Component({
@@ -9,4 +9,11 @@ import { LoaderService } from '../../core/services/loader.service';
 })
 export class BootLoaderComponent {
   loader = inject(LoaderService);
+  private host = inject(ElementRef<HTMLElement>);
+
+  constructor() {
+    afterNextRender(() => {
+      void this.host.nativeElement.offsetHeight;
+    });
+  }
 }
