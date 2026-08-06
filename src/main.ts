@@ -13,9 +13,9 @@ import { BootLoaderComponent } from './app/components/boot-loader/boot-loader.co
   imports: [RouterModule, LoaderComponent, BootLoaderComponent],
   template: `
   @if (loader.initialLoading()) {
-  <app-boot-loader />
+  <app-boot-loader /> <!-- loader de pantalla completa, solo la primera vez -->
 } @else if (loader.loading()) {
-  <app-loader />
+  <app-loader /> <!-- loader normal de navegación entre rutas -->
 }
   <router-outlet />
   `,
@@ -27,8 +27,13 @@ export class App {
   ) {
     this.apisInit.initializeApp().subscribe({
       next: (results) => {
+        console.log('APIs iniciales cargadas', results);
+        const huboFallo = Object.values(results).some(valor => valor === false);
+        this.loader.initSucceeded.set(!huboFallo);
       },
       error: (err) => {
+        console.error('Error inicializando la app:', err);
+        this.loader.initSucceeded.set(false);
       },
       complete: () => {
         setTimeout(() =>{

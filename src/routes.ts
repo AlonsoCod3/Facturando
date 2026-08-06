@@ -59,7 +59,7 @@ const routes: Routes = [
       },
       {
         path: 'clients',
-        canActivate: [productCheckerGuard],
+        canActivate: [clientCheckerGuard],
         children: [
           { path: "", loadComponent: () => import('./app/pages/clients/clients.component').then( (m) => m.ClientsComponent ) },
         ]

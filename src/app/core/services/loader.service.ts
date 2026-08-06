@@ -10,6 +10,8 @@ export interface BootLogEntry {
 export class LoaderService {
   loading = signal(false);
   initialLoading = signal(true);
+  initSucceeded = signal(true);
+  
   bootLog = signal<BootLogEntry[]>([]);
 
   private previousOverflow = '';
