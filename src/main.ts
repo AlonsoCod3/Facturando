@@ -1,6 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { Component, inject } from '@angular/core';
-import { RouterModule, provideRouter, withComponentInputBinding } from '@angular/router';
+import { NavigationEnd, Router, RouterModule, provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import routes from './routes';
 import { LoaderService } from './app/core/services/loader.service';
@@ -23,6 +23,8 @@ import { BootLoaderComponent } from './app/components/boot-loader/boot-loader.co
 export class App {
   public loader = inject(LoaderService)
   private apisInit = inject(ApiService)
+  private router = inject(Router)
+
   constructor(
   ) {
     this.apisInit.initializeApp().subscribe({
@@ -36,9 +38,14 @@ export class App {
         this.loader.initSucceeded.set(false);
       },
       complete: () => {
-        setTimeout(() =>{
           this.loader.finishInitialLoad();
-        }, 1000)
+      }
+    })
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        console.log("pase por end")
+        this.loader.hide();
       }
     })
   }
