@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { isNotLoggedGuard } from './app/guards/is-not-logged.guard';
-import { clientCheckerGuard } from './app/guards/client.guard';
+import { reniecCheckerGuard, clientCheckerGuard } from './app/guards/client.guard';
 import { productCheckerGuard } from './app/guards/product.guard';
 import { appInitGuard } from './app/guards/app-init.guard';
 
@@ -59,7 +59,7 @@ const routes: Routes = [
       },
       {
         path: 'clients',
-        canActivate: [clientCheckerGuard],
+        canActivate: [reniecCheckerGuard, clientCheckerGuard],
         children: [
           { path: "", loadComponent: () => import('./app/pages/clients/clients.component').then( (m) => m.ClientsComponent ) },
         ]
