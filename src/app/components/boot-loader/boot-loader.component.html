@@ -19,11 +19,11 @@
               &#215;
             }
           </span>
-          <span class="log-line__label" [style.--chars]="entry.label.length">{{ entry.label }}</span>
+          <span class="log-line__label">{{ visibleText()[entry.id] ?? '' }}
           @if (entry.status === 'pending') {
             <span class="cursor"></span>
-          }
-        </li>
+          }</span>
+        </li> 
       }
     </ul>
 
