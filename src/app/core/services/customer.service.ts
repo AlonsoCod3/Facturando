@@ -1,14 +1,16 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, timeout, tap, throwError, Observable, from, concatMap, of, map, shareReplay } from 'rxjs';
-import { Customer, CustomerForm, ReniecResponse, SunatResponse } from '../models/customer.model';
+import { catchError, timeout, tap, throwError, Observable, from, concatMap, of, map, shareReplay, retry } from 'rxjs';
+import { Customer, CustomerForm } from '../models/customer.model';
 import { CachingService } from './caching.service';
+import { cacheWithTTL } from '../utils/cache-with-ttl.util';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
   private http = inject(HttpClient);
   private cacheService = inject(CachingService);
   private apiUrl = import.meta.env.NG_APP_CUSTOMERS + "/customers/"
+  private API_CUSTOMER = import.meta.env.NG_APP_CUSTOMERS + "/verify"
 
   // Estado reactivo con signals
   private _customers = signal<Customer[]>([]);
@@ -162,5 +164,31 @@ export class CustomerService {
 
   refreshType(url:string): void {
     this.cacheService.clear(url);
+  }
+
+  // checker API
+  private checkCache = cacheWithTTL(
+    () => this.http.get(this.API_CUSTOMER)
+    .pipe(
+      map((response:any)=> {
+        if(response){
+          return true
+        }
+        throw new Error('API aún no está lista')
+      }),
+      retry({
+        count: 10,
+        delay: 5000
+      }),
+      catchError((err) => {
+        console.error('Error al verificar la API de Customers:', err);
+        return throwError(() => err);
+      })
+  ),
+  300000
+)
+
+  check(): Observable<boolean> {
+    return this.checkCache.get();
   }
 }
