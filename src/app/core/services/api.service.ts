@@ -4,6 +4,7 @@ import { concatMap, delay, tap, toArray} from 'rxjs/operators';
 import { ProductService } from './product.service';
 import { LoaderService } from './loader.service';
 import { ReniecService } from './reniec.service';
+import { CustomerService } from './customer.service';
 
 interface BootStep {
   id: string;
@@ -15,6 +16,7 @@ interface BootStep {
 export class ApiService {
   private loader = inject(LoaderService)
   private reniecService = inject(ReniecService);
+  private customerService = inject(CustomerService);
   private productService = inject(ProductService);
 
   initializeApp(): Observable<any> {
@@ -23,8 +25,13 @@ export class ApiService {
     const steps: BootStep[] = [
       {
         id: 'reniec',
-        label: 'Conectando con RENIEC...',
+        label: 'Conectando con API RENIEC...',
         run: () => this.reniecService.check(),
+      },
+      {
+        id: 'clients',
+        label: 'Conectando con Base de Datos de Clientes...',
+        run: () => this.customerService.check(),
       },
       {
         id: 'products',
@@ -37,14 +44,17 @@ export class ApiService {
       concatMap( (step, index) =>
         of(null).pipe(
           tap(() => this.loader.logStart(step.id,step.label)),
-          delay(500),
+          delay(1000),
           concatMap(() =>
             step.run().pipe(
               map(data => (data)),
-              tap(res => {results[step.id] = res})
+              tap(res => {
+                results[step.id] = res
+                this.loader.logDone(step.id, res)
+              }),
+              delay(500),
             )
           ),
-          tap(res => this.loader.logDone(step.id, res))
         )
       ), 
       toArray(),
